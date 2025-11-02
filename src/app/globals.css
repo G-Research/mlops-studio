@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: #333333;
+  --background: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', 'Helvetica Neue', Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--foreground);
+  background: var(--background);
+  overflow-y: overlay;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a:active,
+a:hover,
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+/* Stage node specific styling to match MyMLOps */
+.stage-node {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0;
+  font-size: 12px;
+  min-width: 200px;
+  min-height: 120px;
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.stage-node:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stage-node.selected {
+  border-color: #6366f1;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.stage-node-header {
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  margin: 0;
+}
+
+.stage-node-title {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #475569;
+  margin: 0;
+}
+
+.stage-node-content {
+  padding: 12px;
+}
+
+.technology-item {
+  display: flex;
+  align-items: center;
+  background-color: #f3f4f6;
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  transition: background-color 0.2s ease;
+}
+
+.technology-item span {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.technology-item:hover {
+  background-color: #e5e7eb;
+}
+
+.technology-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+/* Connection lines styling */
+.connection-line {
+  stroke: #d1d5db;
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+  fill: none;
+}
+
+/* Technology panel styling */
+.technology-panel {
+  background-color: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+}
+
+.technology-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.technology-card:hover {
+  background-color: #f8fafc;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.technology-card.selected {
+  background-color: #eef2ff;
+  border-color: #a5b4fc;
+  color: #3730a3;
+}
+
+/* Canvas and sections */
+.canvas-container {
+  background-color: #ffffff;
+  background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+  min-height: 720px;
+  min-width: 1400px;
+  cursor: grab;
+}
+
+.canvas-container:active {
+  cursor: grabbing;
+}
+
+.workflow-section {
+  position: absolute;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background-color: rgba(248, 250, 252, 0.5);
+  padding: 20px;
+}
+
+.section-label {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: #ffffff;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+/* React Flow edge animations - matching original MyMLOps */
+.react-flow__edge.animated path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  0% {
+    stroke-dashoffset: 10;
+  }
+}
+
+/* Fallback for connection lines */
+.connection-line {
+  stroke: #94a3b8;
+  stroke-width: 2;
+  stroke-dasharray: 5;
+  fill: none;
+}
+
+.connection-line.animated {
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

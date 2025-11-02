@@ -25,6 +25,7 @@ import {
 } from '@/lib/data'
 import { MLOpsStack, MLOpsStage, MLOpsStageInfo, StageConnection, Technology } from '@/types/mlops'
 import CustomNode from './CustomNode'
+import { useSmoothCollision } from '@/hooks/useSmoothCollision'
 
 interface ReactFlowCanvasProps {
   currentStack: MLOpsStack
@@ -49,7 +50,7 @@ function ReactFlowCanvas({
   stageDefinitions = defaultStageDefinitions,
   stageConnections = defaultStageConnections
 }: ReactFlowCanvasProps) {
-  const { setViewport } = useReactFlow()
+  const {} = useReactFlow()
   const [hasRestoredViewport, setHasRestoredViewport] = useState(false)
 
   // Load viewport from localStorage
@@ -59,8 +60,8 @@ function ReactFlowCanvas({
       if (saved) {
         try {
           return JSON.parse(saved)
-        } catch (e) {
-          console.warn('Failed to parse saved viewport:', e)
+        } catch {
+          // Failed to parse saved viewport
         }
       }
     }
@@ -71,7 +72,6 @@ function ReactFlowCanvas({
   // Save viewport to localStorage
   const saveViewport = (viewport: Viewport) => {
     if (typeof window !== 'undefined') {
-      console.log('Saving viewport:', viewport)
       localStorage.setItem('mlops-studio-viewport', JSON.stringify(viewport))
     }
   }
@@ -99,11 +99,30 @@ function ReactFlowCanvas({
     )
   })
 
-  // State for dynamic collision detection during drag
-  const [originalPositions, setOriginalPositions] = useState<
-    Record<string, { x: number; y: number }>
-  >({})
+  // Initialize smooth collision detection
+  const {
+    updateNode,
+    handleDrag,
+    endDrag,
+    checkCollisions,
+    startReturnAnimation,
+    triggerReturn,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    savePositionHistory
+  } = useSmoothCollision({
+    elasticity: 0.35,
+    damping: 0.85,
+    maxPushDistance: 60,
+    influenceRadius: 180,
+    animationSpeed: 0.25
+  })
+
+  // State for drag tracking
   const [draggedNode, setDraggedNode] = useState<string | null>(null)
+  const [lastCleanupPositions, setLastCleanupPositions] = useState<string>('')
 
   // Convert stage definitions to React Flow nodes with local state management
   const [nodes, setNodes] = useState<Node[]>(() => {
@@ -111,119 +130,318 @@ function ReactFlowCanvas({
     if (typeof window !== 'undefined') {
       savedPositions = JSON.parse(localStorage.getItem('custom-stage-positions') || '{}')
     }
-    return stageDefinitions.map(stage => ({
-      id: stage.id,
-      type: 'mlopsStage',
-      position: savedPositions[stage.id] || stage.position,
-      data: {
-        stage,
-        technologies: currentStack.technologies[stage.id] || [],
-        isSelected: selectedStage === stage.id,
-        onSelect: () => onStageSelect(stage.id),
-        onRemoveTechnology: (techId: string) => onRemoveTechnology(stage.id, techId),
-        onTechnologyClick: onTechnologyClick
-      },
-      draggable: true
-    }))
+    const initialNodes = stageDefinitions.map(stage => {
+      const position = savedPositions[stage.id] || stage.position
+      const techCount = currentStack.technologies[stage.id]?.length || 0
+      const height = Math.max(120, 120 + techCount * 32)
+
+      // Initialize collision detection nodes
+      updateNode({
+        id: stage.id,
+        x: position.x,
+        y: position.y,
+        width: 200,
+        height: height
+      })
+
+      return {
+        id: stage.id,
+        type: 'mlopsStage',
+        position,
+        data: {
+          stage,
+          technologies: currentStack.technologies[stage.id] || [],
+          isSelected: selectedStage === stage.id,
+          onSelect: () => onStageSelect(stage.id),
+          onRemoveTechnology: (techId: string) => onRemoveTechnology(stage.id, techId),
+          onTechnologyClick: onTechnologyClick
+        },
+        draggable: true
+      }
+    })
+    return initialNodes
   })
 
-  // Collision detection and repositioning logic
-  const detectCollisions = (nodes: any[]) => {
-    const PADDING = 20 // Minimum distance between boxes
-    const adjustedNodes = [...nodes]
+  // Handle position updates from smooth collision system
+  const handlePositionUpdates = useCallback((updates: Map<string, { x: number; y: number }>) => {
+    setNodes(currentNodes => {
+      return currentNodes.map(node => {
+        const update = updates.get(node.id)
+        if (update) {
+          return {
+            ...node,
+            position: update
+          }
+        }
+        return node
+      })
+    })
+  }, [])
 
-    for (let i = 0; i < adjustedNodes.length; i++) {
-      for (let j = i + 1; j < adjustedNodes.length; j++) {
-        const nodeA = adjustedNodes[i]
-        const nodeB = adjustedNodes[j]
+  // Cleanup function to align nearby boxes without causing overlaps
+  const handleCleanup = useCallback(() => {
+    const SNAP_THRESHOLD = 12 // Pixels within which nodes should snap to each other
 
-        // Calculate node dimensions based on content
+    setNodes(currentNodes => {
+      // Check if positions are the same as last cleanup to avoid duplicates
+      const currentPositionsString = JSON.stringify(
+        currentNodes.map(n => ({ id: n.id, position: n.position }))
+      )
+      if (currentPositionsString === lastCleanupPositions) {
+        return currentNodes // No changes, don't save duplicate history
+      }
+      setLastCleanupPositions(currentPositionsString)
+
+      const updatedNodes = [...currentNodes]
+
+      // Check if two nodes would overlap after alignment
+      const wouldOverlap = (
+        nodeA: any,
+        nodeB: any,
+        newPosA: { x: number; y: number },
+        newPosB: { x: number; y: number }
+      ) => {
         const techCountA = nodeA.data.technologies?.length || 0
         const techCountB = nodeB.data.technologies?.length || 0
-
-        // Dynamic height based on technology count (base 120px + 32px per tech)
         const heightA = Math.max(120, 120 + techCountA * 32)
         const heightB = Math.max(120, 120 + techCountB * 32)
-        const width = 200 // Fixed width
+        const width = 200
+        const padding = 30
 
-        // Check for overlap with padding
-        const overlapX =
-          nodeA.position.x < nodeB.position.x + width + PADDING &&
-          nodeA.position.x + width + PADDING > nodeB.position.x
-        const overlapY =
-          nodeA.position.y < nodeB.position.y + heightB + PADDING &&
-          nodeA.position.y + heightA + PADDING > nodeB.position.y
+        return (
+          newPosA.x < newPosB.x + width + padding &&
+          newPosA.x + width + padding > newPosB.x &&
+          newPosA.y < newPosB.y + heightB + padding &&
+          newPosA.y + heightA + padding > newPosB.y
+        )
+      }
 
-        if (overlapX && overlapY) {
-          // Calculate push direction (move the node with more technologies)
-          const pushNode = techCountA >= techCountB ? nodeB : nodeA
-          const staticNode = techCountA >= techCountB ? nodeA : nodeB
+      // Process nodes multiple times to handle complex alignments in one go
+      let hasChanges = true
+      let iterations = 0
+      const maxIterations = 3 // Prevent infinite loops
 
-          // Calculate push distance and direction
-          const centerAX = nodeA.position.x + width / 2
-          const centerAY = nodeA.position.y + heightA / 2
-          const centerBX = nodeB.position.x + width / 2
-          const centerBY = nodeB.position.y + heightB / 2
+      while (hasChanges && iterations < maxIterations) {
+        hasChanges = false
+        iterations++
 
-          const distanceX = centerBX - centerAX
-          const distanceY = centerBY - centerAY
-          const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY)
+        // Process nodes pair by pair for careful alignment
+        for (let i = 0; i < updatedNodes.length; i++) {
+          const currentNode = updatedNodes[i]
 
-          if (distance > 0) {
-            // Normalize and apply minimum separation
-            const minSeparation = Math.max(heightA, heightB) / 2 + width / 2 + PADDING
-            const pushDistance = minSeparation - distance + 50 // Extra push
+          for (let j = i + 1; j < updatedNodes.length; j++) {
+            const otherNode = updatedNodes[j]
 
-            const pushX = (distanceX / distance) * pushDistance
-            const pushY = (distanceY / distance) * pushDistance
+            const xDiff = Math.abs(currentNode.position.x - otherNode.position.x)
+            const yDiff = Math.abs(currentNode.position.y - otherNode.position.y)
 
-            // Apply the push
-            pushNode.position = {
-              x: Math.max(0, pushNode.position.x + pushX),
-              y: Math.max(0, pushNode.position.y + pushY)
+            // Only align if they're close but not overlapping
+            if (xDiff <= SNAP_THRESHOLD && xDiff > 0) {
+              // Align vertically (same X position) - use the average
+              const alignX =
+                Math.round((currentNode.position.x + otherNode.position.x) / 2 / 20) * 20
+              const newPosA = { ...currentNode.position, x: alignX }
+              const newPosB = { ...otherNode.position, x: alignX }
+
+              // Only apply if no overlap would occur
+              if (!wouldOverlap(currentNode, otherNode, newPosA, newPosB)) {
+                updatedNodes[i] = { ...currentNode, position: newPosA }
+                updatedNodes[j] = { ...otherNode, position: newPosB }
+                hasChanges = true
+              }
+            } else if (yDiff <= SNAP_THRESHOLD && yDiff > 0) {
+              // Align horizontally (same Y position) - use the average
+              const alignY =
+                Math.round((currentNode.position.y + otherNode.position.y) / 2 / 20) * 20
+              const newPosA = { ...currentNode.position, y: alignY }
+              const newPosB = { ...otherNode.position, y: alignY }
+
+              // Only apply if no overlap would occur
+              if (!wouldOverlap(currentNode, otherNode, newPosA, newPosB)) {
+                updatedNodes[i] = { ...currentNode, position: newPosA }
+                updatedNodes[j] = { ...otherNode, position: newPosB }
+                hasChanges = true
+              }
             }
           }
         }
       }
-    }
 
-    return adjustedNodes
-  }
+      // Update collision system with new positions
+      updatedNodes.forEach(node => {
+        const techCount = node.data.technologies?.length || 0
+        const height = Math.max(120, 120 + techCount * 32)
+        updateNode({
+          id: node.id,
+          x: node.position.x,
+          y: node.position.y,
+          width: 200,
+          height: height
+        })
+      })
 
-  // Update nodes when stage definitions, stack, or selection changes
+      // Save updated positions to localStorage and save to history
+      if (typeof window !== 'undefined') {
+        const customPositions = JSON.parse(localStorage.getItem('custom-stage-positions') || '{}')
+        updatedNodes.forEach(node => {
+          customPositions[node.id] = node.position
+        })
+        localStorage.setItem('custom-stage-positions', JSON.stringify(customPositions))
+      }
+
+      // Save this as a history state
+      setTimeout(() => savePositionHistory(), 100)
+
+      return updatedNodes
+    })
+  }, [updateNode, savePositionHistory, lastCleanupPositions])
+
+  // Update nodes when stage definitions or stack changes (position-affecting changes)
   useEffect(() => {
+    // Debug: stack change tracking
+    // Object.entries(currentStack.technologies).map(([stageId, techs]) => ({
+    //   stageId,
+    //   count: techs.length
+    // }))
     let savedPositions = {}
     if (typeof window !== 'undefined') {
       savedPositions = JSON.parse(localStorage.getItem('custom-stage-positions') || '{}')
     }
 
-    let updatedNodes = stageDefinitions.map(stage => ({
-      id: stage.id,
-      type: 'mlopsStage',
-      position: savedPositions[stage.id] || stage.position,
-      data: {
-        stage,
-        technologies: currentStack.technologies[stage.id] || [],
-        isSelected: selectedStage === stage.id,
-        onSelect: () => onStageSelect(stage.id),
-        onRemoveTechnology: (techId: string) => onRemoveTechnology(stage.id, techId),
-        onTechnologyClick: onTechnologyClick
-      },
-      draggable: true
-    }))
+    const updatedNodes = stageDefinitions.map(stage => {
+      const position = savedPositions[stage.id] || stage.position
+      const techCount = currentStack.technologies[stage.id]?.length || 0
+      const height = Math.max(120, 120 + techCount * 32)
 
-    // Apply collision detection and auto-repositioning
-    updatedNodes = detectCollisions(updatedNodes)
+      // Update collision detection nodes
+      updateNode({
+        id: stage.id,
+        x: position.x,
+        y: position.y,
+        width: 200,
+        height: height
+      })
+
+      return {
+        id: stage.id,
+        type: 'mlopsStage',
+        position,
+        data: {
+          stage,
+          technologies: currentStack.technologies[stage.id] || [],
+          isSelected: selectedStage === stage.id,
+          onSelect: () => onStageSelect(stage.id),
+          onRemoveTechnology: (techId: string) => onRemoveTechnology(stage.id, techId),
+          onTechnologyClick: onTechnologyClick
+        },
+        draggable: true
+      }
+    })
 
     setNodes(updatedNodes)
+
+    // Save position history on initial load if positions differ from defaults
+    const isInitialLoad = !nodes.length
+    if (isInitialLoad) {
+      setTimeout(() => {
+        const hasNonDefaultPositions = updatedNodes.some(node => {
+          const stageDefault = stageDefinitions.find(s => s.id === node.id)
+          return (
+            !stageDefault ||
+            node.position.x !== stageDefault.position.x ||
+            node.position.y !== stageDefault.position.y
+          )
+        })
+        if (hasNonDefaultPositions) {
+          savePositionHistory()
+        }
+      }, 100)
+    }
+
+    // Trigger collision detection for initial positioning and after technology changes
+    // Ensure all node updates are processed before checking collisions
+    setTimeout(() => {
+      // Re-update collision system with final dimensions just before collision check
+      updatedNodes.forEach(node => {
+        const techCount = node.data.technologies?.length || 0
+        const height = Math.max(120, 120 + techCount * 32)
+        updateNode({
+          id: node.id,
+          x: node.position.x,
+          y: node.position.y,
+          width: 200,
+          height: height
+        })
+      })
+
+      const collisionUpdates = checkCollisions()
+      if (collisionUpdates.size > 0) {
+        // Apply the collision updates to reposition overlapping nodes
+        setNodes(currentNodes => {
+          return currentNodes.map(node => {
+            const update = collisionUpdates.get(node.id)
+            if (update) {
+              // Update collision system with new position immediately
+              updateNode({
+                id: node.id,
+                x: update.x,
+                y: update.y,
+                width: 200,
+                height: node.data.technologies ? 120 + node.data.technologies.length * 32 : 120
+              })
+
+              return {
+                ...node,
+                position: update
+              }
+            }
+            return node
+          })
+        })
+
+        // Save updated positions to localStorage
+        setTimeout(() => {
+          if (typeof window !== 'undefined') {
+            const customPositions = JSON.parse(
+              localStorage.getItem('custom-stage-positions') || '{}'
+            )
+            updatedNodes.forEach(node => {
+              const finalUpdate = collisionUpdates.get(node.id)
+              if (finalUpdate) {
+                customPositions[node.id] = finalUpdate
+              }
+            })
+            localStorage.setItem('custom-stage-positions', JSON.stringify(customPositions))
+          }
+        }, 100)
+
+        // Also start return animation to allow pushed boxes to return to original positions
+        setTimeout(() => {
+          startReturnAnimation(handlePositionUpdates)
+        }, 200)
+      }
+    }, 50)
   }, [
     stageDefinitions,
-    currentStack,
-    selectedStage,
-    onStageSelect,
-    onRemoveTechnology,
-    onTechnologyClick
+    currentStack, // Only these two should trigger position changes
+    updateNode,
+    checkCollisions,
+    startReturnAnimation,
+    handlePositionUpdates
   ])
+
+  // Update node selection state only (no position changes)
+  useEffect(() => {
+    setNodes(currentNodes =>
+      currentNodes.map(node => ({
+        ...node,
+        data: {
+          ...node.data,
+          isSelected: selectedStage === node.id
+        }
+      }))
+    )
+  }, [selectedStage])
 
   // Calculate optimal handle positions for edges
   const getOptimalHandles = (
@@ -314,105 +532,16 @@ function ReactFlowCanvas({
 
   const handleNodeClick = useCallback(
     (event: React.MouseEvent, node: Node) => {
-      // Call the stage select handler
+      // Call the stage select handler without saving to history
+      // This prevents position jumps when clicking after undo
       onStageSelect(node.id as MLOpsStage)
     },
     [onStageSelect]
   )
 
-  // Real-time collision detection during drag with elastic behavior
-  const handleDragCollisions = useCallback(
-    (nodes: any[], draggedNodeId: string) => {
-      const PADDING = 20
-      const INFLUENCE_DISTANCE = 120 // Distance at which nodes start to repel
-      const adjustedNodes = [...nodes]
-      const draggedNodeIndex = adjustedNodes.findIndex(n => n.id === draggedNodeId)
-
-      if (draggedNodeIndex === -1) {
-        return adjustedNodes
-      }
-
-      const draggedNode = adjustedNodes[draggedNodeIndex]
-      const draggedTechCount = draggedNode.data.technologies?.length || 0
-      const draggedHeight = Math.max(120, 120 + draggedTechCount * 32)
-      const width = 200
-
-      // Check against all other nodes
-      for (let i = 0; i < adjustedNodes.length; i++) {
-        if (i === draggedNodeIndex) {
-          continue
-        }
-
-        const otherNode = adjustedNodes[i]
-        const otherTechCount = otherNode.data.technologies?.length || 0
-        const otherHeight = Math.max(120, 120 + otherTechCount * 32)
-
-        // Calculate distances between centers
-        const centerDraggedX = draggedNode.position.x + width / 2
-        const centerDraggedY = draggedNode.position.y + draggedHeight / 2
-        const centerOtherX = otherNode.position.x + width / 2
-        const centerOtherY = otherNode.position.y + otherHeight / 2
-
-        const distanceX = centerOtherX - centerDraggedX
-        const distanceY = centerOtherY - centerDraggedY
-        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY)
-
-        // Calculate minimum safe distance
-        const minSafeDistance = Math.max(draggedHeight, otherHeight) / 2 + width / 2 + PADDING
-
-        if (distance < INFLUENCE_DISTANCE && distance > 0) {
-          // Store original position if not already stored
-          if (!originalPositions[otherNode.id]) {
-            setOriginalPositions(prev => ({
-              ...prev,
-              [otherNode.id]: { ...otherNode.position }
-            }))
-          }
-
-          if (distance < minSafeDistance) {
-            // Push away from dragged node with smooth easing
-            const pushStrength = Math.pow((minSafeDistance - distance) / minSafeDistance, 0.8)
-            const pushDistance = pushStrength * 100 // Max push distance
-
-            const pushX = (distanceX / distance) * pushDistance
-            const pushY = (distanceY / distance) * pushDistance
-
-            adjustedNodes[i] = {
-              ...otherNode,
-              position: {
-                x: Math.max(0, Math.min(1500, otherNode.position.x + pushX)), // Keep within bounds
-                y: Math.max(0, Math.min(1000, otherNode.position.y + pushY))
-              }
-            }
-          } else if (originalPositions[otherNode.id] && distance > minSafeDistance + 20) {
-            // Elastic return behavior - gradually move back to original position
-            const returnStrength = Math.min(
-              1,
-              (distance - minSafeDistance) / (INFLUENCE_DISTANCE - minSafeDistance)
-            )
-            const originalPos = originalPositions[otherNode.id]
-
-            const returnForce = returnStrength * 0.15 // Gentle return
-            adjustedNodes[i] = {
-              ...otherNode,
-              position: {
-                x: otherNode.position.x + (originalPos.x - otherNode.position.x) * returnForce,
-                y: otherNode.position.y + (originalPos.y - otherNode.position.y) * returnForce
-              }
-            }
-          }
-        }
-      }
-
-      return adjustedNodes
-    },
-    [originalPositions]
-  )
-
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      console.log('Node changes:', changes)
-      let updatedNodes = applyNodeChanges(changes, nodes)
+      const updatedNodes = applyNodeChanges(changes, nodes)
 
       // Handle drag start - track which node is being dragged
       const dragStart = changes.find(
@@ -423,7 +552,6 @@ function ReactFlowCanvas({
           !draggedNode
       )
       if (dragStart) {
-        console.log('Drag started:', dragStart.id)
         setDraggedNode(dragStart.id)
       }
 
@@ -436,9 +564,13 @@ function ReactFlowCanvas({
           draggedNode
       )
       if (dragEnd) {
-        console.log('Drag ended:', dragEnd.id)
         setDraggedNode(null)
-        setOriginalPositions({}) // Clear stored positions for next drag
+        endDrag(dragEnd.id)
+
+        // Start return animation to check for boxes that can return to original positions
+        setTimeout(() => {
+          triggerReturn(handlePositionUpdates)
+        }, 300)
 
         // Save final positions to localStorage
         if (typeof window !== 'undefined') {
@@ -450,24 +582,25 @@ function ReactFlowCanvas({
         }
       }
 
-      // Apply real-time collision detection during active drag
-      if (draggedNode) {
-        const activeDragChange = changes.find(
-          change =>
-            change.type === 'position' &&
-            change.id === draggedNode &&
-            'dragging' in change &&
-            change.dragging === true
-        )
-        if (activeDragChange) {
-          console.log('Active drag collision check for:', draggedNode)
-          updatedNodes = handleDragCollisions(updatedNodes, draggedNode)
-        }
+      // Handle active drag - use smooth collision system
+      const activeDragChange = changes.find(
+        change =>
+          change.type === 'position' &&
+          change.id === draggedNode &&
+          'dragging' in change &&
+          change.dragging === true &&
+          'position' in change &&
+          change.position
+      )
+
+      if (activeDragChange && 'position' in activeDragChange && activeDragChange.position) {
+        // Update the collision system with new position and trigger smooth repulsion
+        handleDrag(activeDragChange.id, activeDragChange.position, handlePositionUpdates)
       }
 
       setNodes(updatedNodes)
     },
-    [nodes, draggedNode, handleDragCollisions]
+    [nodes, draggedNode, handleDrag, endDrag, handlePositionUpdates, triggerReturn]
   )
 
   return (
@@ -499,6 +632,79 @@ function ReactFlowCanvas({
           nodeBorderRadius={8}
           maskColor="rgba(0, 0, 0, 0.2)"
         />
+        <Panel position="top-right" className="react-flow__panel">
+          <div className="flex gap-2">
+            <button
+              onClick={handleCleanup}
+              className="bg-white border border-gray-300 rounded-md p-2 hover:bg-gray-50 shadow-sm"
+              title="Clean up and align nearby boxes"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => undo(handlePositionUpdates)}
+              disabled={!canUndo()}
+              className={`border border-gray-300 rounded-md p-2 shadow-sm ${
+                canUndo()
+                  ? 'bg-white hover:bg-gray-50 cursor-pointer'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              }`}
+              title="Undo last position change"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 7v6h6" />
+                <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" />
+              </svg>
+            </button>
+            <button
+              onClick={() => redo(handlePositionUpdates)}
+              disabled={!canRedo()}
+              className={`border border-gray-300 rounded-md p-2 shadow-sm ${
+                canRedo()
+                  ? 'bg-white hover:bg-gray-50 cursor-pointer'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              }`}
+              title="Redo last undone change"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 7v6h-6" />
+                <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13" />
+              </svg>
+            </button>
+          </div>
+        </Panel>
       </ReactFlow>
     </div>
   )

@@ -87,7 +87,7 @@ describe('Data Structure Tests', () => {
       // If there are duplicates, show which ones
       if (allTechIds.length !== uniqueTechIds.size) {
         const duplicates = Array.from(idCounts.entries())
-          .filter(([id, count]) => count > 1)
+          .filter(([_id, count]) => count > 1)
           .map(([id, count]) => `${id} (${count} times)`)
 
         console.log('Duplicate technology IDs found:', duplicates)

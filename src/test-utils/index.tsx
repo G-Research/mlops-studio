@@ -125,7 +125,7 @@ export const waitFor = async (callback: () => void | Promise<void>, timeout = 10
       try {
         await callback()
         resolve()
-      } catch (error) {
+      } catch {
         if (Date.now() - startTime > timeout) {
           reject(new Error(`Timeout after ${timeout}ms`))
         } else {

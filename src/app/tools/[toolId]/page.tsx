@@ -68,7 +68,7 @@ export default function ToolDetailPage() {
 
   // Find all stages where this technology appears
   const availableStages = Object.entries(technologies)
-    .filter(([stageId, stageTechs]) => stageTechs.some(t => t.id === displayTool!.id))
+    .filter(([_stageId, stageTechs]) => stageTechs.some(t => t.id === displayTool!.id))
     .map(([stageId]) => stageDefinitions.find(s => s.id === stageId))
     .filter(Boolean)
 

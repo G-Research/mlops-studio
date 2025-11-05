@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
+import Link from 'next/link'
 import Header from '@/components/Header'
-import { MLOpsStage, MLOpsStageInfo, StageConnection } from '@/types/mlops'
-import { stageDefinitions, technologies } from '@/lib/data'
+import { MLOpsStageInfo, StageConnection } from '@/types/mlops'
+import { stageDefinitions } from '@/lib/data'
 import {
   getCustomStages,
   saveCustomStages,
@@ -13,14 +14,6 @@ import {
 
 export default function AdminPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
-
-  const [useWhenSuggestions, setUseWhenSuggestions] = useState<string[]>([])
-  const [watchOutSuggestions, setWatchOutSuggestions] = useState<string[]>([])
-  const [showUseWhenSuggestions, setShowUseWhenSuggestions] = useState(false)
-  const [showWatchOutSuggestions, setShowWatchOutSuggestions] = useState(false)
-
-  const [isDragOver, setIsDragOver] = useState(false)
-  const [uploadedIcon, setUploadedIcon] = useState<string | null>(null)
 
   // Dynamic stage management state
   const [customStages, setCustomStages] = useState<MLOpsStageInfo[]>([])
@@ -197,27 +190,6 @@ export default function AdminPage() {
     window.dispatchEvent(new CustomEvent('customStagesChanged'))
   }
 
-  // Extract all existing useWhen and watchOut entries for suggestions
-  const existingEntries = useMemo(() => {
-    const allTechs = Object.values(technologies).flat()
-    const useWhenSet = new Set<string>()
-    const watchOutSet = new Set<string>()
-
-    allTechs.forEach(tech => {
-      if (tech.useWhen) {
-        tech.useWhen.forEach(item => useWhenSet.add(item))
-      }
-      if (tech.watchOut) {
-        tech.watchOut.forEach(item => watchOutSet.add(item))
-      }
-    })
-
-    return {
-      useWhen: Array.from(useWhenSet).sort(),
-      watchOut: Array.from(watchOutSet).sort()
-    }
-  }, [])
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
@@ -243,9 +215,9 @@ export default function AdminPage() {
                   <p className="text-sm text-blue-700">
                     <strong>Technology management has moved!</strong> You can now add and edit
                     technologies directly on the{' '}
-                    <a href="/tools" className="underline font-medium">
+                    <Link href="/tools" className="underline font-medium">
                       Tools page
-                    </a>{' '}
+                    </Link>{' '}
                     with convenient edit buttons on each tool card.
                   </p>
                 </div>

@@ -22,6 +22,27 @@ const mockSuggestions = {
   watchOut: ['Steep learning curve', 'Limited cloud support', 'Performance overhead']
 }
 
+// Helper function to find text that may be split by highlighting elements
+const findTextWithHighlighting = (screen: any, text: string) => {
+  return screen.getAllByText((content: string, element: Element | null) => {
+    if (content.includes(text)) {
+      return true
+    }
+    return element && element.textContent && element.textContent.includes(text)
+  })[0] // Get the first match
+}
+
+// Helper function to query text that may be split by highlighting elements
+const queryTextWithHighlighting = (screen: any, text: string) => {
+  const elements = screen.queryAllByText((content: string, element: Element | null) => {
+    if (content.includes(text)) {
+      return true
+    }
+    return element && element.textContent && element.textContent.includes(text)
+  })
+  return elements.length > 0 ? elements[0] : null
+}
+
 describe('TechnologyFormModal Auto-Suggestions', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -41,9 +62,7 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
     // Should show matching suggestions
     await waitFor(() => {
       expect(
-        screen.getByText((content, _element) => {
-          return content.includes('You need') && content.includes('versioning capabilities')
-        })
+        findTextWithHighlighting(screen, 'You need data versioning capabilities')
       ).toBeInTheDocument()
     })
   })
@@ -74,16 +93,28 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
     await user.type(useWhenInput, 'versioning')
 
     await waitFor(() => {
-      // Should show the matching suggestion
+      // Should show the matching suggestion (text may be split by highlighting)
       expect(
-        screen.getByText((content, _element) => {
-          return content.includes('You need') && content.includes('versioning capabilities')
+        screen.getByText((content, element) => {
+          return (
+            content.includes('You need') &&
+            (content.includes('versioning capabilities') ||
+              (element &&
+                element.textContent &&
+                element.textContent.includes('You need data versioning capabilities')))
+          )
         })
       ).toBeInTheDocument()
       // Should not show non-matching suggestions
       expect(
-        screen.queryByText((content, _element) => {
-          return content.includes('You want') && content.includes('track data lineage')
+        screen.queryByText((content, element) => {
+          return (
+            content.includes('You want') &&
+            (content.includes('track data lineage') ||
+              (element &&
+                element.textContent &&
+                element.textContent.includes('You want to track data lineage')))
+          )
         })
       ).not.toBeInTheDocument()
     })
@@ -101,17 +132,9 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
 
     await waitFor(() => {
       // Should show the matching suggestion
-      expect(
-        screen.getByText((content, _element) => {
-          return content.includes('Performance') && content.includes('overhead')
-        })
-      ).toBeInTheDocument()
+      expect(findTextWithHighlighting(screen, 'Performance overhead')).toBeInTheDocument()
       // Should not show non-matching suggestions
-      expect(
-        screen.queryByText((content, _element) => {
-          return content.includes('Steep') && content.includes('learning curve')
-        })
-      ).not.toBeInTheDocument()
+      expect(queryTextWithHighlighting(screen, 'Steep learning curve')).not.toBeInTheDocument()
     })
   })
 
@@ -128,16 +151,12 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
     // Wait for dropdown to appear
     await waitFor(() => {
       expect(
-        screen.getByText((content, _element) => {
-          return content.includes('You need') && content.includes('versioning capabilities')
-        })
+        findTextWithHighlighting(screen, 'You need data versioning capabilities')
       ).toBeInTheDocument()
     })
 
     // Click on a suggestion
-    const suggestion = screen.getByText((content, _element) => {
-      return content.includes('You need') && content.includes('versioning capabilities')
-    })
+    const suggestion = findTextWithHighlighting(screen, 'You need data versioning capabilities')
     await user.click(suggestion)
 
     // Should appear in the useWhen list as a removable item
@@ -161,17 +180,11 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
 
     // Wait for dropdown to appear
     await waitFor(() => {
-      expect(
-        screen.getByText((content, _element) => {
-          return content.includes('Steep') && content.includes('learning curve')
-        })
-      ).toBeInTheDocument()
+      expect(findTextWithHighlighting(screen, 'Steep learning curve')).toBeInTheDocument()
     })
 
     // Click on a suggestion
-    const suggestion = screen.getByText((content, _element) => {
-      return content.includes('Steep') && content.includes('learning curve')
-    })
+    const suggestion = findTextWithHighlighting(screen, 'Steep learning curve')
     await user.click(suggestion)
 
     // Should appear in the watchOut list as a removable item
@@ -196,29 +209,19 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
     // Verify suggestions are visible
     await waitFor(() => {
       expect(
-        screen.getByText((content, _element) => {
-          return content.includes('You need') && content.includes('versioning capabilities')
-        })
+        findTextWithHighlighting(screen, 'You need data versioning capabilities')
       ).toBeInTheDocument()
-      expect(
-        screen.getByText((content, _element) => {
-          return content.includes('You want') && content.includes('track data lineage')
-        })
-      ).toBeInTheDocument()
+      expect(findTextWithHighlighting(screen, 'You want to track data lineage')).toBeInTheDocument()
     })
 
     // Click on a suggestion
-    const suggestion = screen.getByText((content, _element) => {
-      return content.includes('You need') && content.includes('versioning capabilities')
-    })
+    const suggestion = findTextWithHighlighting(screen, 'You need data versioning capabilities')
     await user.click(suggestion)
 
     // Dropdown should be hidden after selection
     await waitFor(() => {
       expect(
-        screen.queryByText((content, _element) => {
-          return content.includes('You want') && content.includes('track data lineage')
-        })
+        queryTextWithHighlighting(screen, 'You want to track data lineage')
       ).not.toBeInTheDocument()
     })
   })
@@ -250,9 +253,7 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
       () => {
         // But other matching suggestions should still be there
         expect(
-          screen.getByText((content, _element) => {
-            return content.includes('You want') && content.includes('track data lineage')
-          })
+          findTextWithHighlighting(screen, 'You want to track data lineage')
         ).toBeInTheDocument()
       },
       { timeout: 3000 }
@@ -260,9 +261,7 @@ describe('TechnologyFormModal Auto-Suggestions', () => {
 
     // The already added suggestion should not appear in the dropdown
     expect(
-      screen.queryByText((content, _element) => {
-        return content.includes('You need') && content.includes('versioning capabilities')
-      })
+      queryTextWithHighlighting(screen, 'You need data versioning capabilities')
     ).not.toBeInTheDocument()
   })
 })

@@ -2,7 +2,7 @@ export interface Technology {
   id: string
   name: string
   description: string
-  category: MLOpsStage
+  category: MLOpsStage | string
   icon?: string
   url?: string
   tags?: string[]
@@ -19,7 +19,22 @@ export interface Technology {
 }
 
 export interface TechnologyInstallation {
-  method: 'pip' | 'helm' | 'apt' | 'docker' | 'manual'
+  method:
+    | 'pip'
+    | 'helm'
+    | 'apt'
+    | 'docker'
+    | 'manual'
+    | 'conda'
+    | 'kubectl'
+    | 'curl'
+    | 'download'
+    | 'installer'
+    | 'custom'
+    | 'web'
+    | 'multiple'
+    | 'npm'
+    | ''
   code: string // Installation command(s)
 }
 
@@ -31,7 +46,7 @@ export interface TechnologyIntegration {
 }
 
 export interface MLOpsStageInfo {
-  id: MLOpsStage
+  id: MLOpsStage | string
   name: string
   description: string
   position: {
@@ -41,9 +56,9 @@ export interface MLOpsStageInfo {
 }
 
 export interface StageConnection {
-  from: MLOpsStage
-  to: MLOpsStage
-  type: 'one-way' | 'bi-directional'
+  from: MLOpsStage | string
+  to: MLOpsStage | string
+  type: 'one-way' | 'bi-directional' | 'default'
   animated?: boolean
 }
 
@@ -59,18 +74,20 @@ export type MLOpsStage =
   | 'model_monitoring'
   | 'runtime_engine'
 
+export type TechnologyMap = Record<string, Technology[]>
+
 export interface MLOpsStack {
   id: string
   name: string
   description?: string
-  technologies: Record<MLOpsStage, Technology[]>
+  technologies: TechnologyMap
   created: Date
   updated: Date
 }
 
 export interface DashboardState {
   currentStack: MLOpsStack
-  selectedStage: MLOpsStage | null
+  selectedStage: MLOpsStage | string | null
   showTechnologyModal: boolean
   selectedTechnology: Technology | null
 }

@@ -131,7 +131,8 @@ function ReactFlowCanvas({
       savedPositions = JSON.parse(localStorage.getItem('custom-stage-positions') || '{}')
     }
     const initialNodes = stageDefinitions.map(stage => {
-      const position = savedPositions[stage.id] || stage.position
+      const position =
+        (savedPositions as Record<string, { x: number; y: number }>)[stage.id] || stage.position
       const techCount = currentStack.technologies[stage.id]?.length || 0
       const height = Math.max(120, 120 + techCount * 32)
 
@@ -152,8 +153,9 @@ function ReactFlowCanvas({
           stage,
           technologies: currentStack.technologies[stage.id] || [],
           isSelected: selectedStage === stage.id,
-          onSelect: () => onStageSelect(stage.id),
-          onRemoveTechnology: (techId: string) => onRemoveTechnology(stage.id, techId),
+          onSelect: () => onStageSelect(stage.id as MLOpsStage),
+          onRemoveTechnology: (techId: string) =>
+            onRemoveTechnology(stage.id as MLOpsStage, techId),
           onTechnologyClick: onTechnologyClick
         },
         draggable: true
@@ -309,7 +311,8 @@ function ReactFlowCanvas({
     }
 
     const updatedNodes = stageDefinitions.map(stage => {
-      const position = savedPositions[stage.id] || stage.position
+      const position =
+        (savedPositions as Record<string, { x: number; y: number }>)[stage.id] || stage.position
       const techCount = currentStack.technologies[stage.id]?.length || 0
       const height = Math.max(120, 120 + techCount * 32)
 
@@ -330,8 +333,9 @@ function ReactFlowCanvas({
           stage,
           technologies: currentStack.technologies[stage.id] || [],
           isSelected: selectedStage === stage.id,
-          onSelect: () => onStageSelect(stage.id),
-          onRemoveTechnology: (techId: string) => onRemoveTechnology(stage.id, techId),
+          onSelect: () => onStageSelect(stage.id as MLOpsStage),
+          onRemoveTechnology: (techId: string) =>
+            onRemoveTechnology(stage.id as MLOpsStage, techId),
           onTechnologyClick: onTechnologyClick
         },
         draggable: true
@@ -551,7 +555,7 @@ function ReactFlowCanvas({
           change.dragging === true &&
           !draggedNode
       )
-      if (dragStart) {
+      if (dragStart && 'id' in dragStart) {
         setDraggedNode(dragStart.id)
       }
 
@@ -563,7 +567,7 @@ function ReactFlowCanvas({
           change.dragging === false &&
           draggedNode
       )
-      if (dragEnd) {
+      if (dragEnd && 'id' in dragEnd) {
         setDraggedNode(null)
         endDrag(dragEnd.id)
 

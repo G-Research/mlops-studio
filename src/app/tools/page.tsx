@@ -295,7 +295,7 @@ export default function ToolsPage() {
           {searchFilteredTechs.map(tech => {
             // Find all stages where this technology appears
             const availableStages = Object.entries(technologies)
-              .filter(([stageId, stageTechs]) => stageTechs.some(t => t.id === tech.id))
+              .filter(([, stageTechs]) => stageTechs.some(t => t.id === tech.id))
               .map(([stageId]) => stageDefinitions.find(s => s.id === stageId))
               .filter(Boolean)
 
@@ -343,7 +343,7 @@ export default function ToolsPage() {
                     {tech.tags && tech.tags.length > 0 && (
                       <div className="mt-3 pt-3 border-t border-gray-200">
                         <div className="flex flex-wrap gap-1">
-                          {tech.tags.map(tag => (
+                          {tech.tags.map((tag: string) => (
                             <span
                               key={tag}
                               className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs"
@@ -408,8 +408,11 @@ export default function ToolsPage() {
                 <h3 className="font-semibold text-gray-900 mb-2">{stage.name}</h3>
                 <p className="text-sm text-gray-600 mb-2">{stage.description}</p>
                 <div className="text-xs text-indigo-600">
-                  {technologies[stage.id].length} tool
-                  {technologies[stage.id].length !== 1 ? 's' : ''} available
+                  {technologies[stage.id as keyof typeof technologies]?.length || 0} tool
+                  {(technologies[stage.id as keyof typeof technologies]?.length || 0) !== 1
+                    ? 's'
+                    : ''}{' '}
+                  available
                 </div>
               </div>
             ))}

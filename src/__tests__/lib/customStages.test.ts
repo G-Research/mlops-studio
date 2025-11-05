@@ -14,16 +14,22 @@ describe('Custom Stages Utilities', () => {
     jest.clearAllMocks()
 
     // Reset localStorage mock to default behavior
-    const mockLocalStorage = {
+    const mockLocalStorage: {
+      store: Record<string, string>
+      getItem: jest.MockedFunction<(key: string) => string | null>
+      setItem: jest.MockedFunction<(key: string, value: string) => void>
+      removeItem: jest.MockedFunction<(key: string) => void>
+      clear: jest.MockedFunction<() => void>
+    } = {
       store: {} as Record<string, string>,
-      getItem: jest.fn((key: string) => mockLocalStorage.store[key] || null),
-      setItem: jest.fn((key: string, value: string) => {
+      getItem: jest.fn((key: string): string | null => mockLocalStorage.store[key] || null),
+      setItem: jest.fn((key: string, value: string): void => {
         mockLocalStorage.store[key] = value
       }),
-      removeItem: jest.fn((key: string) => {
+      removeItem: jest.fn((key: string): void => {
         delete mockLocalStorage.store[key]
       }),
-      clear: jest.fn(() => {
+      clear: jest.fn((): void => {
         mockLocalStorage.store = {}
       })
     }

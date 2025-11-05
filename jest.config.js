@@ -9,7 +9,8 @@ module.exports = {
     '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@/test-utils$': '<rootDir>/src/test-utils'
   },
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  testMatch: ['**/__tests__/**/*.(test|spec).(js|jsx|ts|tsx)', '**/*.(test|spec).(js|jsx|ts|tsx)'],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/', '.*\\.d\\.ts$'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',

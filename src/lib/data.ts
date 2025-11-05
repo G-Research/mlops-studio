@@ -119,7 +119,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'dvc',
+      id: 'exp-dvc',
       name: 'DVC',
       description: 'DVC is an open-source version control system for machine learning projects.',
       category: 'experiment_tracking',
@@ -484,7 +484,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'weights-biases',
+      id: 'dv-weights-biases',
       name: 'Weights & Biases',
       description:
         'Weights & Biases is a tool to track and visualize your machine learning pipeline pieces, from datasets to production models.',
@@ -513,7 +513,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'neptune',
+      id: 'dv-neptune',
       name: 'Neptune',
       description:
         'Neptune is a flexible metadata store for MLOps that allows teams to log, store, display, organize, compare, and query model-building metadata.',
@@ -616,7 +616,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'dagshub',
+      id: 'dv-dagshub',
       name: 'DAGsHub',
       description:
         'Platform for data scientists that combines GitHub-like repository management with integrated data versioning, experiment tracking, and model management. Built on top of Git and DVC with zero-configuration setup for MLOps workflows.',
@@ -883,14 +883,14 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'fastds',
+      id: 'cv-fastds',
       name: 'FastDS',
       description: 'Version your notebooks, pipelines and configuration files.',
       category: 'code_versioning',
       icon: '/icons/fastds.1f5e86ad.svg'
     },
     {
-      id: 'dagshub',
+      id: 'cv-dagshub',
       name: 'DAGsHub',
       description: 'Version your notebooks, pipelines and configuration files.',
       category: 'code_versioning',
@@ -1006,7 +1006,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'kubeflow',
+      id: 'pipe-kubeflow',
       name: 'Kubeflow',
       description:
         'Open-source machine learning platform for Kubernetes that provides portable and scalable ML workflows. Offers comprehensive MLOps capabilities including pipeline orchestration, model serving, experiment tracking, and multi-framework support in cloud-native environments.',
@@ -1043,7 +1043,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'kedro',
+      id: 'pipe-kedro',
       name: 'Kedro',
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
@@ -1213,7 +1213,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'ray',
+      id: 'pipe-ray',
       name: 'Ray',
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
@@ -1221,7 +1221,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/ray.dae6468e.svg'
     },
     {
-      id: 'dvc',
+      id: 'pipe-dvc',
       name: 'DVC',
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
@@ -1229,7 +1229,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/dvc.168eef99.svg'
     },
     {
-      id: 'polyaxon',
+      id: 'pipe-polyaxon',
       name: 'Polyaxon',
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
@@ -1237,7 +1237,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/polyaxon.326d1db6.svg'
     },
     {
-      id: 'clearml',
+      id: 'pipe-clearml',
       name: 'ClearML',
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
@@ -1245,7 +1245,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/clearml.73e47861.svg'
     },
     {
-      id: 'pachyderm',
+      id: 'pipe-pachyderm',
       name: 'Pachyderm',
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
@@ -1375,7 +1375,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
 
   artifact_tracking: [
     {
-      id: 'modeldb',
+      id: 'art-modeldb',
       name: 'ModelDB',
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
@@ -1383,7 +1383,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/modeldb.svg'
     },
     {
-      id: 'kubeflow',
+      id: 'art-kubeflow',
       name: 'Kubeflow',
       description:
         'Open-source machine learning platform for Kubernetes that provides portable and scalable ML workflows. Offers comprehensive MLOps capabilities including pipeline orchestration, model serving, experiment tracking, and multi-framework support in cloud-native environments.',
@@ -1420,7 +1420,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'mlflow',
+      id: 'art-mlflow',
       name: 'MLflow',
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
@@ -1428,7 +1428,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/mlflow.0f53ee8c.svg'
     },
     {
-      id: 'weights-biases',
+      id: 'art-weights-biases',
       name: 'Weights & Biases',
       description:
         'Weights & Biases is a tool to track and visualize your machine learning pipeline pieces, from datasets to production models.',
@@ -1457,7 +1457,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'neptune',
+      id: 'art-neptune',
       name: 'Neptune',
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
@@ -1465,7 +1465,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/neptune.719fd442.svg'
     },
     {
-      id: 'polyaxon',
+      id: 'art-polyaxon',
       name: 'Polyaxon',
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
@@ -1473,7 +1473,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/polyaxon.326d1db6.svg'
     },
     {
-      id: 'clearml',
+      id: 'art-clearml',
       name: 'ClearML',
       description:
         'ClearML is an end-to-end platform with an auto-magical suite of tools to streamline your ML workflow.',
@@ -1495,7 +1495,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'pachyderm',
+      id: 'art-pachyderm',
       name: 'Pachyderm',
       description: 'Pachyderm is a tool for data versioning and pipelines for MLOps.',
       category: 'artifact_tracking',
@@ -1516,7 +1516,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'mlrun',
+      id: 'art-mlrun',
       name: 'MLRun',
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
@@ -1524,7 +1524,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/mlrun.svg'
     },
     {
-      id: 'dagshub',
+      id: 'art-dagshub',
       name: 'DagsHub',
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
@@ -1565,7 +1565,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'mlflow',
+      id: 'reg-mlflow',
       name: 'MLflow',
       description:
         'MLflow is an open-source platform for managing the end-to-end machine learning lifecycle.',
@@ -1591,42 +1591,42 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'determined',
+      id: 'reg-determined',
       name: 'Determined',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
       icon: '/icons/determined.34aaa33a.svg'
     },
     {
-      id: 'weights-biases',
+      id: 'reg-weights-biases',
       name: 'Weights & Biases',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
       icon: '/icons/wandb.c05fb0a7.svg'
     },
     {
-      id: 'neptune',
+      id: 'reg-neptune',
       name: 'Neptune',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
       icon: '/icons/neptune.719fd442.svg'
     },
     {
-      id: 'clearml',
+      id: 'reg-clearml',
       name: 'ClearML',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
       icon: '/icons/clearml.73e47861.svg'
     },
     {
-      id: 'mlrun',
+      id: 'reg-mlrun',
       name: 'MLRun',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
       icon: '/icons/mlrun.svg'
     },
     {
-      id: 'dagshub',
+      id: 'reg-dagshub',
       name: 'DagsHub',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
@@ -1710,7 +1710,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'bentoml',
+      id: 'serve-bentoml',
       name: 'BentoML',
       description:
         'BentoML is an open platform that simplifies ML model deployment and enables you to serve your models at a production scale in minutes.',
@@ -1878,7 +1878,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'ray',
+      id: 'serve-ray',
       name: 'Ray',
       description:
         'Ray is an open-source tool that makes it simple to scale compute-intensive Python workloads.',
@@ -1902,7 +1902,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'mlflow',
+      id: 'serve-mlflow',
       name: 'MLflow',
       description:
         'MLflow is an open-source platform for managing the end-to-end machine learning lifecycle.',
@@ -1928,7 +1928,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'clearml',
+      id: 'serve-clearml',
       name: 'ClearML',
       description:
         'ClearML is an end-to-end platform with an auto-magical suite of tools to streamline your ML workflow.',
@@ -1987,7 +1987,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'mlrun',
+      id: 'serve-mlrun',
       name: 'MLRun',
       description:
         'Open-source MLOps orchestration framework that provides automated pipeline management, real-time model serving, and feature store capabilities. Enables serverless ML deployment on Kubernetes with comprehensive monitoring and drift detection.',
@@ -2103,7 +2103,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/alibi-detect.svg'
     },
     {
-      id: 'clearml',
+      id: 'mon-clearml',
       name: 'ClearML',
       description:
         'Track your model to detect performance degradation, bias and data drift. Detect issues early and take action.',
@@ -2111,7 +2111,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       icon: '/icons/clearml.73e47861.svg'
     },
     {
-      id: 'mlrun',
+      id: 'mon-mlrun',
       name: 'MLRun',
       description:
         'Track your model to detect performance degradation, bias and data drift. Detect issues early and take action.',
@@ -2213,7 +2213,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       integrations: []
     },
     {
-      id: 'nuclio',
+      id: 'rt-nuclio',
       name: 'Nuclio',
       description:
         'A high-performance serverless computing platform designed for data-intensive and compute-intensive workloads. Provides 10-100x faster execution than traditional frameworks with built-in support for machine learning, real-time analytics, and event-driven architectures.',

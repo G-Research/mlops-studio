@@ -35,6 +35,17 @@ export function useSmoothCollision(options: UseSmoothCollisionOptions = {}) {
 
     if (!targetPositionsRef.current.has(node.id)) {
       targetPositionsRef.current.set(node.id, { x: node.x, y: node.y })
+    } else {
+      // Only update target position if the node has actually moved significantly
+      const currentTarget = targetPositionsRef.current.get(node.id)!
+      const distanceMoved = Math.sqrt(
+        Math.pow(node.x - currentTarget.x, 2) + Math.pow(node.y - currentTarget.y, 2)
+      )
+
+      // Only update if moved more than a few pixels (to allow collision animations)
+      if (distanceMoved > 5 && !node.isDragging) {
+        targetPositionsRef.current.set(node.id, { x: node.x, y: node.y })
+      }
     }
     if (!velocitiesRef.current.has(node.id)) {
       velocitiesRef.current.set(node.id, { x: 0, y: 0 })
@@ -91,13 +102,26 @@ export function useSmoothCollision(options: UseSmoothCollisionOptions = {}) {
         const yOverlap = Math.abs(dy) < halfHeightA + halfHeightB + padding
         const isColliding = xOverlap && yOverlap
 
-        if (distance > 0 && isColliding) {
-          // Simple consistent repulsion for all colliding boxes (ignore distance limit)
-          const repulsionStrength = 0.8
-          const pushDistance = repulsionStrength * maxPushDistance
+        if (isColliding) {
+          // Handle identical positions by using a random direction
+          let pushX, pushY
+          if (distance === 0) {
+            // Generate a consistent but random-looking direction based on node IDs
+            const hash = nodeA.id.charCodeAt(0) + nodeB.id.charCodeAt(0)
+            const angle = hash * 0.618 * Math.PI * 2 // Golden ratio for better distribution
+            const repulsionStrength = 0.8
+            const pushDistance = repulsionStrength * maxPushDistance
 
-          const pushX = (dx / distance) * pushDistance
-          const pushY = (dy / distance) * pushDistance
+            pushX = Math.cos(angle) * pushDistance
+            pushY = Math.sin(angle) * pushDistance
+          } else {
+            // Simple consistent repulsion for all colliding boxes (ignore distance limit)
+            const repulsionStrength = 0.8
+            const pushDistance = repulsionStrength * maxPushDistance
+
+            pushX = (dx / distance) * pushDistance
+            pushY = (dy / distance) * pushDistance
+          }
 
           // Determine which node to move (prefer moving non-dragged nodes)
           if (nodeA.isDragging && !nodeB.isDragging) {
@@ -421,23 +445,34 @@ export function useSmoothCollision(options: UseSmoothCollisionOptions = {}) {
               x: otherNode.x,
               y: otherNode.y
             }
-            const distance = Math.sqrt(
-              Math.pow(originalPos.x - otherTarget.x, 2) +
-                Math.pow(originalPos.y - otherTarget.y, 2)
-            )
+            // Use proper rectangular collision detection like in checkCollisions
+            const centerAX = originalPos.x + node.width / 2
+            const centerAY = originalPos.y + node.height / 2
+            const centerBX = otherTarget.x + otherNode.width / 2
+            const centerBY = otherTarget.y + otherNode.height / 2
 
-            // Smaller padding for intelligent return - allows easier return to original positions
-            const minDistance =
-              (node.width + otherNode.width) / 2 + (node.height + otherNode.height) / 2 + 10
+            const dx = Math.abs(centerBX - centerAX)
+            const dy = Math.abs(centerBY - centerAY)
 
-            if (distance < minDistance) {
+            const halfWidthA = node.width / 2
+            const halfHeightA = node.height / 2
+            const halfWidthB = otherNode.width / 2
+            const halfHeightB = otherNode.height / 2
+            const padding = 10
+
+            const xOverlap = dx < halfWidthA + halfWidthB + padding
+            const yOverlap = dy < halfHeightA + halfHeightB + padding
+            const wouldCollide = xOverlap && yOverlap
+
+            if (wouldCollide) {
               canReturn = false
               blockingBoxes.push({
                 id: otherNode.id,
                 position: { x: Math.round(otherTarget.x), y: Math.round(otherTarget.y) },
-                distance: Math.round(distance),
-                minRequired: Math.round(minDistance),
-                tooClose: Math.round(minDistance - distance) + 'px'
+                dx: Math.round(dx),
+                dy: Math.round(dy),
+                xOverlap: xOverlap ? 'YES' : 'NO',
+                yOverlap: yOverlap ? 'YES' : 'NO'
               })
             }
           }

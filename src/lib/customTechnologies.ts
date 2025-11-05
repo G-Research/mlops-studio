@@ -7,13 +7,15 @@ export function getCustomTechnologies(): Record<MLOpsStage, Technology[]> {
     // SSR safety
     const emptyTech: Record<MLOpsStage, Technology[]> = {
       experiment_tracking: [],
+      experimentation: [],
       data_versioning: [],
-      orchestration: [],
-      model_training: [],
+      code_versioning: [],
+      pipeline_orchestration: [],
+      artifact_tracking: [],
       model_registry: [],
+      model_serving: [],
       model_monitoring: [],
-      continuous_deployment: [],
-      infrastructure: []
+      runtime_engine: []
     }
     return emptyTech
   }
@@ -26,25 +28,29 @@ export function getCustomTechnologies(): Record<MLOpsStage, Technology[]> {
       console.error('Failed to load custom technologies:', e)
       return {
         experiment_tracking: [],
+        experimentation: [],
         data_versioning: [],
-        orchestration: [],
-        model_training: [],
+        code_versioning: [],
+        pipeline_orchestration: [],
+        artifact_tracking: [],
         model_registry: [],
+        model_serving: [],
         model_monitoring: [],
-        continuous_deployment: [],
-        infrastructure: []
+        runtime_engine: []
       }
     }
   }
   return {
     experiment_tracking: [],
+    experimentation: [],
     data_versioning: [],
-    orchestration: [],
-    model_training: [],
+    code_versioning: [],
+    pipeline_orchestration: [],
+    artifact_tracking: [],
     model_registry: [],
+    model_serving: [],
     model_monitoring: [],
-    continuous_deployment: [],
-    infrastructure: []
+    runtime_engine: []
   }
 }
 

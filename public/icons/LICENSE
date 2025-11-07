@@ -1,0 +1,58 @@
+# Logo and Icon Licensing
+
+This directory contains SVG logos and icons for various MLOps and data science tools and services. These logos are the property of their respective owners and are used here for identification purposes only.
+
+## Usage Rights
+
+The logos and icons in this directory are:
+
+- **Not owned by this project** - They belong to their respective companies/projects
+- **Used for identification purposes only** - To help users recognize and select tools
+- **Not modified** (except for format conversion to SVG where necessary)
+- **Not redistributed for commercial purposes** - This is an open-source educational tool
+
+## Fair Use
+
+We believe our usage constitutes fair use under copyright law because:
+
+1. **Educational/Informational Purpose**: Used to help users learn about and identify MLOps tools
+2. **Non-Commercial**: This is an open-source project for educational purposes
+3. **Transformative Use**: Used in a different context (tool selection interface vs. original branding)
+4. **No Market Harm**: Does not compete with or replace the original logos' intended use
+
+## Trademark Acknowledgment
+
+All logos, trademarks, and brand names are the property of their respective owners:
+
+- Airflow™ is a trademark of The Apache Software Foundation
+- AWS™ and related logos are trademarks of Amazon Web Services, Inc.
+- Docker™ is a trademark of Docker, Inc.
+- GitHub™ is a trademark of GitHub, Inc.
+- Google Cloud™ is a trademark of Google LLC
+- Kubernetes™ is a trademark of The Linux Foundation
+- Microsoft Azure™ is a trademark of Microsoft Corporation
+- MLflow™ is a trademark of Databricks, Inc.
+- Weights & Biases™ is a trademark of Weights & Biases, Inc.
+
+*And many others - each logo belongs to its respective company/project*
+
+## Removal Requests
+
+If you are a trademark owner and would like your logo removed, please:
+
+1. Open an issue in this repository
+2. Email the project maintainers
+3. We will promptly remove the logo and replace it with a generic placeholder
+
+## Alternative Sources
+
+Many of these logos were sourced from:
+
+- Official company websites and press kits
+- Public brand guidelines and media resources  
+- Open source repositories with appropriate licenses
+- Vector logo collections (with attribution where required)
+
+## No Endorsement
+
+The inclusion of these logos does not imply endorsement by the respective companies of this project, nor does it imply endorsement by this project of the respective products or services.

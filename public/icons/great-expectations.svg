@@ -1,24 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs>
-    <linearGradient id="geGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FF6310"/>
-      <stop offset="100%" style="stop-color:#f1a981"/>
-    </linearGradient>
-  </defs>
-  <!-- Background circle -->
-  <circle cx="100" cy="100" r="90" fill="url(#geGradient)" stroke="#404041" stroke-width="4"/>
+  <!-- Orange segments forming the circular G -->
+  <!-- Outer ring top -->
+  <path d="M 100 20 A 80 80 0 0 1 171.42 71.42 L 157.07 85.78 A 60 60 0 0 0 100 40 Z" fill="#FF6600"/>
   
-  <!-- GE monogram -->
-  <g transform="translate(100,100)">
-    <!-- G -->
-    <path d="M-35,-20 A20,20 0 1,0 -35,20 L-15,20 L-15,0 L-25,0" fill="white" stroke="#404041" stroke-width="1.5"/>
-    <!-- E -->
-    <path d="M5,-20 L5,20 M5,-20 L25,-20 M5,0 L20,0 M5,20 L25,20" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
-  </g>
+  <!-- Outer ring right -->
+  <path d="M 171.42 128.58 A 80 80 0 0 1 100 180 L 100 160 A 60 60 0 0 0 157.07 114.22 Z" fill="#FF6600"/>
   
-  <!-- Data quality indicator dots -->
-  <circle cx="60" cy="60" r="4" fill="white" opacity="0.8"/>
-  <circle cx="140" cy="60" r="4" fill="white" opacity="0.8"/>
-  <circle cx="60" cy="140" r="4" fill="white" opacity="0.8"/>
-  <circle cx="140" cy="140" r="4" fill="white" opacity="0.8"/>
+  <!-- Outer ring bottom -->
+  <path d="M 100 180 A 80 80 0 0 1 28.58 128.58 L 42.93 114.22 A 60 60 0 0 0 100 160 Z" fill="#FF6600"/>
+  
+  <!-- Outer ring left -->
+  <path d="M 28.58 71.42 A 80 80 0 0 1 100 20 L 100 40 A 60 60 0 0 0 42.93 85.78 Z" fill="#FF6600"/>
+  
+  <!-- Inner G segments -->
+  <!-- G top bar -->
+  <path d="M 100 70 A 30 30 0 0 1 130 100 L 115 100 L 115 85 A 15 15 0 0 0 100 85 Z" fill="#FF6600"/>
+  
+  <!-- G bottom segment -->
+  <path d="M 100 115 A 30 30 0 0 1 70 100 A 30 30 0 0 1 100 85 L 100 70 A 45 45 0 0 0 55 100 A 45 45 0 0 0 100 130 Z" fill="#FF6600"/>
+  
+  <!-- G middle bar -->
+  <rect x="100" y="95" width="25" height="10" fill="#FF6600"/>
 </svg>

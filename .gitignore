@@ -43,3 +43,6 @@ one_off_scripts/
 
 # claude settings (user-specific)
 .claude/
+
+# Temporary analysis files
+*-command-message*.txt

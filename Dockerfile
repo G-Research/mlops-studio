@@ -1,5 +1,5 @@
 # Use the official Node.js runtime as the base image
-FROM node:23-alpine AS base
+FROM node:22-alpine AS base
 
 # Set working directory
 WORKDIR /app
@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 # Build stage
-FROM node:23-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Copy package files
@@ -27,7 +27,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:23-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 # Create a non-root user

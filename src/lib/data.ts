@@ -8,7 +8,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Weights & Biases is a tool to track and visualize your machine learning pipeline pieces, from datasets to production models.',
       category: 'experiment_tracking',
-      icon: '/icons/wandb.c05fb0a7.svg',
+      icon: '/icons/wandb.svg',
       url: 'https://wandb.ai/site',
       websiteUrl: 'https://wandb.ai/site',
       repoUrl: 'https://github.com/wandb/client',
@@ -37,7 +37,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Kedro is an open-source Python framework for creating reproducible, maintainable, and modular data science code.',
       category: 'experiment_tracking',
-      icon: '/icons/kedro.6008c76a.svg',
+      icon: '/icons/kedro.svg',
       url: 'https://kedro.org/',
       websiteUrl: 'https://kedro.org/',
       repoUrl: 'https://github.com/kedro-org/kedro',
@@ -73,7 +73,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'MLflow is an open-source platform for managing the end-to-end machine learning lifecycle.',
       category: 'experiment_tracking',
-      icon: '/icons/mlflow.0f53ee8c.svg',
+      icon: '/icons/mlflow.svg',
       url: 'https://mlflow.org/',
       websiteUrl: 'https://mlflow.org/',
       repoUrl: 'https://github.com/mlflow/mlflow/',
@@ -99,7 +99,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Determined is an open-source deep learning training platform that makes building models fast and easy.',
       category: 'experiment_tracking',
-      icon: '/icons/determined.34aaa33a.svg',
+      icon: '/icons/determined.svg',
       url: 'https://www.determined.ai/',
       websiteUrl: 'https://www.determined.ai/',
       repoUrl: 'https://github.com/determined-ai/determined',
@@ -123,7 +123,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'DVC',
       description: 'DVC is an open-source version control system for machine learning projects.',
       category: 'experiment_tracking',
-      icon: '/icons/dvc.168eef99.svg',
+      icon: '/icons/dvc.svg',
       url: 'https://dvc.org/',
       websiteUrl: 'https://dvc.org/',
       repoUrl: 'https://github.com/iterative/dvc',
@@ -146,7 +146,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Neptune is a flexible metadata store for MLOps that allows teams to log, store, display, organize, compare, and query model-building metadata.',
       category: 'experiment_tracking',
-      icon: '/icons/neptune.719fd442.svg',
+      icon: '/icons/neptune.svg',
       url: 'https://neptune.ai/',
       websiteUrl: 'https://neptune.ai/',
       repoUrl: 'https://github.com/neptune-ai/neptune-client',
@@ -175,7 +175,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Polyaxon is a platform for building, training, and monitoring large-scale deep learning applications.',
       category: 'experiment_tracking',
-      icon: '/icons/polyaxon.326d1db6.svg',
+      icon: '/icons/polyaxon.svg',
       url: 'https://polyaxon.com/',
       websiteUrl: 'https://polyaxon.com/',
       repoUrl: 'https://github.com/polyaxon/polyaxon',
@@ -198,7 +198,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'ClearML is an end-to-end platform with an auto-magical suite of tools to streamline your ML workflow.',
       category: 'experiment_tracking',
-      icon: '/icons/clearml.73e47861.svg',
+      icon: '/icons/clearml.svg',
       url: 'https://clear.ml/',
       websiteUrl: 'https://clear.ml/',
       repoUrl: 'https://github.com/allegroai/clearml',
@@ -258,7 +258,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         ' Kubeflow makes deploying ML workflows on Kubernetes simple, portable and scalable.',
       category: 'experimentation',
-      icon: '/icons/kubeflow.b23d7704.svg',
+      icon: '/icons/kubeflow.svg',
       url: 'https://www.kubeflow.org/',
       websiteUrl: 'https://www.kubeflow.org/',
       repoUrl: 'https://github.com/kubeflow/kubeflow',
@@ -310,7 +310,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         "Netflix's open-source polyglot notebook environment that supports multiple programming languages (Scala, Python, SQL) within single notebooks. Features IDE-like capabilities with autocomplete, parameter hints, and seamless Apache Spark integration for data science workflows.",
       category: 'experimentation',
-      icon: '/icons/polynote.c94a7518.svg',
+      icon: '/icons/polynote.svg',
       url: 'https://polynote.org/',
       websiteUrl: 'https://polynote.org/',
       repoUrl: 'https://github.com/polynote/polynote',
@@ -381,7 +381,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'A powerful scientific Python development environment designed by and for scientists, engineers, and data analysts. Combines advanced code editing and debugging capabilities with interactive data exploration, visualization, and analysis tools from popular scientific libraries.',
       category: 'experimentation',
-      icon: '/icons/spyder.dd15ab9c.svg',
+      icon: '/icons/spyder.svg',
       url: 'https://www.spyder-ide.org/',
       websiteUrl: 'https://www.spyder-ide.org/',
       repoUrl: 'https://github.com/spyder-ide/spyder',
@@ -421,7 +421,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Open-source version control system designed specifically for data science and machine learning projects. Provides Git-like functionality for datasets, models, and ML pipelines with support for experiment tracking and reproducible workflows.',
       category: 'data_versioning',
-      icon: '/icons/dvc.168eef99.svg',
+      icon: '/icons/dvc.svg',
       url: 'https://dvc.org/',
       websiteUrl: 'https://dvc.org/',
       repoUrl: 'https://github.com/iterative/dvc',
@@ -458,7 +458,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Dolt is a SQL database that you can fork, clone, branch, merge, push and pull just like a Git repository - like Git and MySQL had a baby.',
       category: 'data_versioning',
-      icon: '/icons/dolt.b1a4e0ea.svg',
+      icon: '/icons/dolt.svg',
       url: 'https://www.dolthub.com/',
       websiteUrl: 'https://www.dolthub.com/',
       repoUrl: 'https://github.com/dolthub/dolt',
@@ -489,7 +489,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Weights & Biases is a tool to track and visualize your machine learning pipeline pieces, from datasets to production models.',
       category: 'data_versioning',
-      icon: '/icons/wandb.c05fb0a7.svg',
+      icon: '/icons/wandb.svg',
       url: 'https://wandb.ai/site',
       websiteUrl: 'https://wandb.ai/site',
       repoUrl: 'https://github.com/wandb/client',
@@ -518,7 +518,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Neptune is a flexible metadata store for MLOps that allows teams to log, store, display, organize, compare, and query model-building metadata.',
       category: 'data_versioning',
-      icon: '/icons/neptune.719fd442.svg',
+      icon: '/icons/neptune.svg',
       url: 'https://neptune.ai/',
       websiteUrl: 'https://neptune.ai/',
       repoUrl: 'https://github.com/neptune-ai/neptune-client',
@@ -547,7 +547,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Git extension that replaces large files with text pointers while storing the actual files on a remote server. Enables version control of large assets while maintaining normal Git workflows and keeping repository sizes manageable.',
       category: 'data_versioning',
-      icon: '/icons/gitlfs.efee9fbe.svg',
+      icon: '/icons/gitlfs.svg',
       url: 'https://git-lfs.com/',
       websiteUrl: 'https://git-lfs.com/',
       repoUrl: 'https://github.com/git-lfs/git-lfs',
@@ -584,7 +584,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'A command-line wrapper that combines Git and DVC functionality to streamline data science workflows. Automates repetitive version control tasks and reduces errors in Git+DVC operations through simplified command interfaces.',
       category: 'data_versioning',
-      icon: '/icons/fastds.1f5e86ad.svg',
+      icon: '/icons/fastds.svg',
       url: 'https://mymlops.com/tools/fastds',
       websiteUrl: 'https://mymlops.com/tools/fastds',
       repoUrl: '',
@@ -657,7 +657,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'Pachyderm',
       description: 'Pachyderm is a tool for data versioning and pipelines for MLOps.',
       category: 'data_versioning',
-      icon: '/icons/pachyderm.9a34e8cf.svg',
+      icon: '/icons/pachyderm.svg',
       url: 'https://www.pachyderm.com/',
       websiteUrl: 'https://www.pachyderm.com/',
       repoUrl: 'https://github.com/pachyderm/pachyderm',
@@ -679,7 +679,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Open-source data version control platform that transforms object storage into Git-like repositories. Enables atomic operations, branching, and versioning for data lakes with support for S3, GCS, Azure Blob, and other cloud storage systems.',
       category: 'data_versioning',
-      icon: '/icons/lakefs.ad82f03c.svg',
+      icon: '/icons/lakefs.svg',
       url: 'https://lakefs.io/',
       websiteUrl: 'https://lakefs.io/',
       repoUrl: 'https://github.com/treeverse/lakeFS',
@@ -887,7 +887,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'FastDS',
       description: 'Version your notebooks, pipelines and configuration files.',
       category: 'code_versioning',
-      icon: '/icons/fastds.1f5e86ad.svg'
+      icon: '/icons/fastds.svg'
     },
     {
       id: 'cv-dagshub',
@@ -905,7 +905,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Apache Airflow is a platform created by the community to programmatically author, schedule and monitor workflows using Python DAGs.',
       category: 'pipeline_orchestration',
-      icon: '/icons/airflow.95e57932.svg',
+      icon: '/icons/airflow.svg',
       url: 'https://airflow.apache.org/',
       websiteUrl: 'https://airflow.apache.org/',
       repoUrl: 'https://github.com/apache/airflow',
@@ -942,7 +942,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Argo Workflows is an open-source, container-native workflow engine for orchestrating parallel jobs on Kubernetes, particularly suited for MLOps pipeline orchestration.',
       category: 'pipeline_orchestration',
-      icon: '/icons/argo.378887ab.svg',
+      icon: '/icons/argo.svg',
       url: 'https://argoproj.github.io/workflows/',
       websiteUrl: 'https://argoproj.github.io/workflows/',
       repoUrl: 'https://github.com/argoproj/argo-workflows',
@@ -1011,7 +1011,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Open-source machine learning platform for Kubernetes that provides portable and scalable ML workflows. Offers comprehensive MLOps capabilities including pipeline orchestration, model serving, experiment tracking, and multi-framework support in cloud-native environments.',
       category: 'pipeline_orchestration',
-      icon: '/icons/kubeflow.b23d7704.svg',
+      icon: '/icons/kubeflow.svg',
       url: 'https://www.kubeflow.org/',
       websiteUrl: 'https://www.kubeflow.org/',
       repoUrl: 'https://github.com/kubeflow/kubeflow',
@@ -1048,7 +1048,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
       category: 'pipeline_orchestration',
-      icon: '/icons/kedro.6008c76a.svg'
+      icon: '/icons/kedro.svg'
     },
     {
       id: 'nextflow',
@@ -1093,7 +1093,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Dagster is an orchestration platform for developing, producing, and observing data assets.',
       category: 'pipeline_orchestration',
-      icon: '/icons/dagster.1eb08458.svg',
+      icon: '/icons/dagster.svg',
       url: 'https://dagster.io/',
       websiteUrl: 'https://dagster.io/',
       repoUrl: 'https://github.com/dagster-io/dagster',
@@ -1120,7 +1120,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
       category: 'pipeline_orchestration',
-      icon: '/icons/beam.a5f488b8.svg'
+      icon: '/icons/beam.svg'
     },
     {
       id: 'zenml',
@@ -1128,7 +1128,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'ZenML is a unified, extensible, open-source MLOps framework for creating portable, production-ready MLOps pipelines that work across different infrastructure platforms.',
       category: 'pipeline_orchestration',
-      icon: '/icons/zenml.84bd21d1.svg',
+      icon: '/icons/zenml.svg',
       url: 'https://www.zenml.io',
       websiteUrl: 'https://www.zenml.io',
       repoUrl: 'https://github.com/zenml-io/zenml',
@@ -1159,7 +1159,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Flyte is a workflow automation platform for mission-critical data and machine learning processes at scale.',
       category: 'pipeline_orchestration',
-      icon: '/icons/flyte.a73ea03f.svg',
+      icon: '/icons/flyte.svg',
       url: 'https://flyte.org/',
       websiteUrl: 'https://flyte.org/',
       repoUrl: 'https://github.com/flyteorg/flyte',
@@ -1187,7 +1187,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Prefect is an open-source workflow management system designed for modern infrastructure.',
       category: 'pipeline_orchestration',
-      icon: '/icons/prefect.9f12c3df.svg',
+      icon: '/icons/prefect.svg',
       url: 'https://www.prefect.io/',
       websiteUrl: 'https://www.prefect.io/',
       repoUrl: 'https://github.com/prefecthq/prefect',
@@ -1218,7 +1218,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
       category: 'pipeline_orchestration',
-      icon: '/icons/ray.dae6468e.svg'
+      icon: '/icons/ray.svg'
     },
     {
       id: 'pipe-dvc',
@@ -1226,7 +1226,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
       category: 'pipeline_orchestration',
-      icon: '/icons/dvc.168eef99.svg'
+      icon: '/icons/dvc.svg'
     },
     {
       id: 'pipe-polyaxon',
@@ -1234,7 +1234,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
       category: 'pipeline_orchestration',
-      icon: '/icons/polyaxon.326d1db6.svg'
+      icon: '/icons/polyaxon.svg'
     },
     {
       id: 'pipe-clearml',
@@ -1242,7 +1242,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
       category: 'pipeline_orchestration',
-      icon: '/icons/clearml.73e47861.svg'
+      icon: '/icons/clearml.svg'
     },
     {
       id: 'pipe-pachyderm',
@@ -1250,7 +1250,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Automate the steps of your ML experiments. Schedule automatic pipeline runs to retrain the model on new data.',
       category: 'pipeline_orchestration',
-      icon: '/icons/pachyderm.9a34e8cf.svg'
+      icon: '/icons/pachyderm.svg'
     },
     {
       id: 'orchest',
@@ -1258,7 +1258,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'A visual pipeline builder for data science workflows that enabled interactive development without DAGs. **Note: Project is no longer actively developed** - creators recommend Apache Airflow for robust workflow solutions.',
       category: 'pipeline_orchestration',
-      icon: '/icons/orchest.a781163f.svg',
+      icon: '/icons/orchest.svg',
       url: 'https://github.com/orchest/orchest',
       websiteUrl: 'https://github.com/orchest/orchest',
       repoUrl: 'https://github.com/orchest/orchest',
@@ -1303,7 +1303,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'A Java-based open-source automation server that provides robust CI/CD pipeline capabilities for MLOps workflows. Offers extensive plugin ecosystem, flexible pipeline configuration, and strong integration with containerization and cloud platforms for machine learning model deployment.',
       category: 'pipeline_orchestration',
-      icon: '/icons/jenkins.e7ff4f38.svg',
+      icon: '/icons/jenkins.svg',
       url: 'https://www.jenkins.io/',
       websiteUrl: 'https://www.jenkins.io/',
       repoUrl: 'https://github.com/jenkinsci/jenkins',
@@ -1340,7 +1340,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'An open-source, infinitely-scalable orchestration platform that enables declarative workflow definition using YAML. Designed for event-driven and scheduled data workflows with rich plugin ecosystem and multi-language support for MLOps automation.',
       category: 'pipeline_orchestration',
-      icon: '/icons/kestra.d1ea7b6e.svg',
+      icon: '/icons/kestra.svg',
       url: 'https://kestra.io/',
       websiteUrl: 'https://kestra.io/',
       repoUrl: 'https://github.com/kestra-io/kestra',
@@ -1388,7 +1388,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Open-source machine learning platform for Kubernetes that provides portable and scalable ML workflows. Offers comprehensive MLOps capabilities including pipeline orchestration, model serving, experiment tracking, and multi-framework support in cloud-native environments.',
       category: 'artifact_tracking',
-      icon: '/icons/kubeflow.b23d7704.svg',
+      icon: '/icons/kubeflow.svg',
       url: 'https://www.kubeflow.org/',
       websiteUrl: 'https://www.kubeflow.org/',
       repoUrl: 'https://github.com/kubeflow/kubeflow',
@@ -1425,7 +1425,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
       category: 'artifact_tracking',
-      icon: '/icons/mlflow.0f53ee8c.svg'
+      icon: '/icons/mlflow.svg'
     },
     {
       id: 'art-weights-biases',
@@ -1433,7 +1433,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Weights & Biases is a tool to track and visualize your machine learning pipeline pieces, from datasets to production models.',
       category: 'artifact_tracking',
-      icon: '/icons/wandb.c05fb0a7.svg',
+      icon: '/icons/wandb.svg',
       url: 'https://wandb.ai/site',
       websiteUrl: 'https://wandb.ai/site',
       repoUrl: 'https://github.com/wandb/client',
@@ -1462,7 +1462,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
       category: 'artifact_tracking',
-      icon: '/icons/neptune.719fd442.svg'
+      icon: '/icons/neptune.svg'
     },
     {
       id: 'art-polyaxon',
@@ -1470,7 +1470,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Store and keep track of datasets, models, and evaluation across your experiments and pipelines.',
       category: 'artifact_tracking',
-      icon: '/icons/polyaxon.326d1db6.svg'
+      icon: '/icons/polyaxon.svg'
     },
     {
       id: 'art-clearml',
@@ -1478,7 +1478,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'ClearML is an end-to-end platform with an auto-magical suite of tools to streamline your ML workflow.',
       category: 'artifact_tracking',
-      icon: '/icons/clearml.73e47861.svg',
+      icon: '/icons/clearml.svg',
       url: 'https://clear.ml/',
       websiteUrl: 'https://clear.ml/',
       repoUrl: 'https://github.com/allegroai/clearml',
@@ -1499,7 +1499,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'Pachyderm',
       description: 'Pachyderm is a tool for data versioning and pipelines for MLOps.',
       category: 'artifact_tracking',
-      icon: '/icons/pachyderm.9a34e8cf.svg',
+      icon: '/icons/pachyderm.svg',
       url: 'https://www.pachyderm.com/',
       websiteUrl: 'https://www.pachyderm.com/',
       repoUrl: 'https://github.com/pachyderm/pachyderm',
@@ -1540,7 +1540,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'BentoML is an open platform that simplifies ML model deployment and enables you to serve your models at a production scale in minutes.',
       category: 'model_registry',
-      icon: '/icons/bentoml.0a56dfe1.svg',
+      icon: '/icons/bentoml.svg',
       url: 'https://www.bentoml.com/',
       websiteUrl: 'https://www.bentoml.com/',
       repoUrl: 'https://github.com/bentoml/BentoML',
@@ -1570,7 +1570,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'MLflow is an open-source platform for managing the end-to-end machine learning lifecycle.',
       category: 'model_registry',
-      icon: '/icons/mlflow.0f53ee8c.svg',
+      icon: '/icons/mlflow.svg',
       url: 'https://mlflow.org/',
       websiteUrl: 'https://mlflow.org/',
       repoUrl: 'https://github.com/mlflow/mlflow/',
@@ -1595,28 +1595,28 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'Determined',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
-      icon: '/icons/determined.34aaa33a.svg'
+      icon: '/icons/determined.svg'
     },
     {
       id: 'reg-weights-biases',
       name: 'Weights & Biases',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
-      icon: '/icons/wandb.c05fb0a7.svg'
+      icon: '/icons/wandb.svg'
     },
     {
       id: 'reg-neptune',
       name: 'Neptune',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
-      icon: '/icons/neptune.719fd442.svg'
+      icon: '/icons/neptune.svg'
     },
     {
       id: 'reg-clearml',
       name: 'ClearML',
       description: 'Store your models in a centralized repository to track and deploy them.',
       category: 'model_registry',
-      icon: '/icons/clearml.73e47861.svg'
+      icon: '/icons/clearml.svg'
     },
     {
       id: 'reg-mlrun',
@@ -1641,7 +1641,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'NVIDIA Triton Inference Server is an open-source AI inference serving platform that standardizes AI model deployment across different workloads with high-performance inference.',
       category: 'model_serving',
-      icon: '/icons/nvidia.b35989a4.svg',
+      icon: '/icons/nvidia.svg',
       url: 'https://developer.nvidia.com/nvidia-triton-inference-server',
       websiteUrl: 'https://developer.nvidia.com/nvidia-triton-inference-server',
       repoUrl: 'https://github.com/triton-inference-server/server',
@@ -1678,7 +1678,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Seldon Core 2 is a Kubernetes-native MLOps and LLMOps framework for deploying machine learning models and Large Language Model systems at scale.',
       category: 'model_serving',
-      icon: '/icons/seldoncore.36bf93ec.svg',
+      icon: '/icons/seldoncore.svg',
       url: 'https://docs.seldon.ai/seldon-core-2',
       websiteUrl: 'https://docs.seldon.ai/seldon-core-2',
       repoUrl: 'https://github.com/SeldonIO/seldon-core',
@@ -1715,7 +1715,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'BentoML is an open platform that simplifies ML model deployment and enables you to serve your models at a production scale in minutes.',
       category: 'model_serving',
-      icon: '/icons/bentoml.0a56dfe1.svg',
+      icon: '/icons/bentoml.svg',
       url: 'https://www.bentoml.com/',
       websiteUrl: 'https://www.bentoml.com/',
       repoUrl: 'https://github.com/bentoml/BentoML',
@@ -1745,7 +1745,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'A flexible, high-performance serving system designed specifically for machine learning models in production environments. Provides efficient model version management, RESTful and gRPC APIs, and seamless integration with TensorFlow ecosystem for scalable ML inference.',
       category: 'model_serving',
-      icon: '/icons/tensorflow.b4d34a5e.svg',
+      icon: '/icons/tensorflow.svg',
       url: 'https://www.tensorflow.org/tfx/guide/serving',
       websiteUrl: 'https://www.tensorflow.org/tfx/guide/serving',
       repoUrl: 'https://github.com/tensorflow/serving',
@@ -1782,7 +1782,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'KServe is a Kubernetes-native platform for deploying both generative and predictive AI inference at scale, supporting OpenAI-compatible protocols and multi-framework deployment.',
       category: 'model_serving',
-      icon: '/icons/kserve.ce0005de.svg',
+      icon: '/icons/kserve.svg',
       url: 'https://kserve.github.io/website/',
       websiteUrl: 'https://kserve.github.io/website/',
       repoUrl: 'https://github.com/kserve/kserve',
@@ -1846,7 +1846,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'A flexible and easy-to-use tool for serving and scaling PyTorch models in production environments. Supports both eager mode and TorchScript models with built-in multi-worker scaling, metrics collection, and seamless API access for high-performance inference.',
       category: 'model_serving',
-      icon: '/icons/pytorch.796df496.svg',
+      icon: '/icons/pytorch.svg',
       url: 'https://docs.pytorch.org/serve/',
       websiteUrl: 'https://pytorch.org/serve/',
       repoUrl: 'https://github.com/pytorch/serve',
@@ -1883,7 +1883,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Ray is an open-source tool that makes it simple to scale compute-intensive Python workloads.',
       category: 'model_serving',
-      icon: '/icons/ray.dae6468e.svg',
+      icon: '/icons/ray.svg',
       url: 'https://www.ray.io/',
       websiteUrl: 'https://www.ray.io/',
       repoUrl: 'https://github.com/ray-project/ray',
@@ -1907,7 +1907,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'MLflow is an open-source platform for managing the end-to-end machine learning lifecycle.',
       category: 'model_serving',
-      icon: '/icons/mlflow.0f53ee8c.svg',
+      icon: '/icons/mlflow.svg',
       url: 'https://mlflow.org/',
       websiteUrl: 'https://mlflow.org/',
       repoUrl: 'https://github.com/mlflow/mlflow/',
@@ -1933,7 +1933,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'ClearML is an end-to-end platform with an auto-magical suite of tools to streamline your ML workflow.',
       category: 'model_serving',
-      icon: '/icons/clearml.73e47861.svg',
+      icon: '/icons/clearml.svg',
       url: 'https://clear.ml/',
       websiteUrl: 'https://clear.ml/',
       repoUrl: 'https://github.com/allegroai/clearml',
@@ -2031,7 +2031,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'Prometheus',
       description: 'Prometheus is an open-source system monitoring and alerting toolkit.',
       category: 'model_monitoring',
-      icon: '/icons/prometheus.6b2dff7e.svg',
+      icon: '/icons/prometheus.svg',
       url: 'https://prometheus.io/',
       websiteUrl: 'https://prometheus.io/',
       repoUrl: 'https://github.com/prometheus/prometheus',
@@ -2053,7 +2053,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'Grafana',
       description: 'Grafana is an open-source tool for online system analytics & monitoring.',
       category: 'model_monitoring',
-      icon: '/icons/grafana.440e5584.svg',
+      icon: '/icons/grafana.svg',
       url: 'https://grafana.com/',
       websiteUrl: 'https://grafana.com/',
       repoUrl: 'https://github.com/grafana/grafana',
@@ -2108,7 +2108,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Track your model to detect performance degradation, bias and data drift. Detect issues early and take action.',
       category: 'model_monitoring',
-      icon: '/icons/clearml.73e47861.svg'
+      icon: '/icons/clearml.svg'
     },
     {
       id: 'mon-mlrun',
@@ -2124,7 +2124,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'NannyML is an open-source post-deployment data science library that detects silent model failures in production and estimates ML model performance without ground truth.',
       category: 'model_monitoring',
-      icon: '/icons/nannyml.42501b86.svg',
+      icon: '/icons/nannyml.svg',
       url: 'https://www.nannyml.com/',
       websiteUrl: 'https://www.nannyml.com/',
       repoUrl: 'https://github.com/NannyML/nannyml',
@@ -2163,7 +2163,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Ray is an open-source tool that makes it simple to scale compute-intensive Python workloads.',
       category: 'runtime_engine',
-      icon: '/icons/ray.dae6468e.svg',
+      icon: '/icons/ray.svg',
       url: 'https://www.ray.io/',
       websiteUrl: 'https://www.ray.io/',
       repoUrl: 'https://github.com/ray-project/ray',
@@ -2187,7 +2187,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Optimize your code and distribute execution across multiple machines to improve performance.',
       category: 'runtime_engine',
-      icon: '/icons/dask.0ff0ca57.svg'
+      icon: '/icons/dask.svg'
     },
     {
       id: 'apache-spark',
@@ -2195,7 +2195,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Apache Spark is a data processing framework for large datasets and distributed computing.',
       category: 'runtime_engine',
-      icon: '/icons/spark.93af465b.svg',
+      icon: '/icons/spark.svg',
       url: 'https://spark.apache.org/',
       websiteUrl: 'https://spark.apache.org/',
       repoUrl: 'https://github.com/apache/spark',
@@ -2255,7 +2255,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'Horovod is a distributed deep learning training framework developed by Uber for TensorFlow, Keras, PyTorch, and Apache MXNet that makes distributed training fast and easy.',
       category: 'runtime_engine',
-      icon: '/icons/horovod.a8834a3c.svg',
+      icon: '/icons/horovod.svg',
       url: 'https://horovod.ai/',
       websiteUrl: 'https://horovod.ai/',
       repoUrl: 'https://github.com/horovod/horovod',

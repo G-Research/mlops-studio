@@ -584,7 +584,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       description:
         'A command-line wrapper that combines Git and DVC functionality to streamline data science workflows. Automates repetitive version control tasks and reduces errors in Git+DVC operations through simplified command interfaces.',
       category: 'data_versioning',
-      icon: '/icons/fastds.svg',
+      icon: '/icons/fastds.png',
       url: 'https://mymlops.com/tools/fastds',
       websiteUrl: 'https://mymlops.com/tools/fastds',
       repoUrl: '',
@@ -887,7 +887,7 @@ export const technologies: Record<MLOpsStage, Technology[]> = {
       name: 'FastDS',
       description: 'Version your notebooks, pipelines and configuration files.',
       category: 'code_versioning',
-      icon: '/icons/fastds.svg'
+      icon: '/icons/fastds.png'
     },
     {
       id: 'cv-dagshub',

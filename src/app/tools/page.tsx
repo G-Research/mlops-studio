@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import TechnologyFormModal from '@/components/TechnologyFormModal'
-import { stageDefinitions } from '@/lib/data'
+import { stageDefinitions, technologies as defaultTechnologies } from '@/lib/data'
 import {
   getAllTechnologies,
   addCustomTechnology,
@@ -16,7 +16,7 @@ export default function ToolsPage() {
   const [selectedStage, setSelectedStage] = useState<MLOpsStage | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const searchInputRef = useRef<HTMLInputElement>(null)
-  const [technologies, setTechnologies] = useState(getAllTechnologies())
+  const [technologies, setTechnologies] = useState(defaultTechnologies)
 
   // Technology form modal state
   const [showTechModal, setShowTechModal] = useState(false)
@@ -62,13 +62,13 @@ export default function ToolsPage() {
   const filteredTechnologies = selectedStage
     ? technologies[selectedStage].sort((a, b) => a.name.localeCompare(b.name))
     : (() => {
-        // Create a unique list of technologies by ID, keeping the first occurrence
+        // Create a unique list of technologies by name, keeping the first occurrence
         const uniqueTechs = new Map()
         Object.values(technologies)
           .flat()
           .forEach(tech => {
-            if (!uniqueTechs.has(tech.id)) {
-              uniqueTechs.set(tech.id, tech)
+            if (!uniqueTechs.has(tech.name)) {
+              uniqueTechs.set(tech.name, tech)
             }
           })
         return Array.from(uniqueTechs.values()).sort((a, b) => a.name.localeCompare(b.name))
@@ -293,9 +293,9 @@ export default function ToolsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {searchFilteredTechs.map(tech => {
-            // Find all stages where this technology appears
+            // Find all stages where this technology appears (match by name to catch stage-prefixed IDs)
             const availableStages = Object.entries(technologies)
-              .filter(([, stageTechs]) => stageTechs.some(t => t.id === tech.id))
+              .filter(([, stageTechs]) => stageTechs.some(t => t.name === tech.name))
               .map(([stageId]) => stageDefinitions.find(s => s.id === stageId))
               .filter(Boolean)
 
@@ -306,7 +306,9 @@ export default function ToolsPage() {
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="text-lg font-semibold text-gray-900">{tech.name}</h3>
                       <div className="flex items-center gap-2">
-                        {tech.icon && <img src={tech.icon} alt={tech.name} className="w-6 h-6" />}
+                        {tech.icon && (
+                          <img src={tech.icon} alt={tech.name} className="w-6 h-6 object-contain" />
+                        )}
                       </div>
                     </div>
 

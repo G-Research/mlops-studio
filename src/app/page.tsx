@@ -10,6 +10,7 @@ import { MLOpsStack, MLOpsStage, Technology } from '@/types/mlops'
 import { stageDefinitions } from '@/lib/data'
 import { getCurrentStack, createNewStack, saveStack } from '@/lib/storage'
 import { getAllStages, getAllConnections } from '@/lib/customStages'
+import { getAllTechnologies } from '@/lib/customTechnologies'
 
 export default function Home() {
   const [currentStack, setCurrentStack] = useState<MLOpsStack>(createNewStack())
@@ -20,7 +21,24 @@ export default function Home() {
   useEffect(() => {
     const savedStack = getCurrentStack()
     if (savedStack) {
-      setCurrentStack(savedStack)
+      // Refresh icon paths from current data so stale localStorage objects get updated icons
+      const currentData = getAllTechnologies()
+      const iconById = new Map<string, string>()
+      Object.values(currentData)
+        .flat()
+        .forEach(t => {
+          if (t.icon && !iconById.has(t.id)) {
+            iconById.set(t.id, t.icon)
+          }
+        })
+      const technologies: MLOpsStack['technologies'] = {}
+      Object.entries(savedStack.technologies).forEach(([stage, techs]) => {
+        technologies[stage as MLOpsStage] = techs.map(t => {
+          const icon = iconById.get(t.id)
+          return icon ? { ...t, icon } : t
+        })
+      })
+      setCurrentStack({ ...savedStack, technologies })
     }
     setIsInitialized(true)
 
@@ -174,6 +192,7 @@ export default function Home() {
           selectedTechnologies={selectedStage ? currentStack.technologies[selectedStage] : []}
           onAddTechnology={handleQuickAddTechnology}
           stageDefinitions={allStages}
+          onStageSelect={handleStageSelect}
         />
 
         <div className="flex flex-col flex-1">

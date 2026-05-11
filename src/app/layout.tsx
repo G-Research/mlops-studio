@@ -3,7 +3,10 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'MLOps Studio',
-  description: 'Build and visualize your MLOps stack'
+  description: 'Build and visualize your MLOps stack',
+  icons: {
+    icon: '/logo.svg'
+  }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

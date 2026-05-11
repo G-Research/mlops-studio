@@ -9,6 +9,7 @@ interface TechnologyPanelProps {
   selectedTechnologies: Technology[]
   onAddTechnology?: (technology: Technology) => void
   stageDefinitions?: MLOpsStageInfo[]
+  onStageSelect?: (stageId: MLOpsStage) => void
 }
 
 export default function TechnologyPanel({
@@ -16,21 +17,35 @@ export default function TechnologyPanel({
   onTechnologySelect,
   selectedTechnologies,
   onAddTechnology,
-  stageDefinitions: customStageDefinitions = stageDefinitions
+  stageDefinitions: customStageDefinitions = stageDefinitions,
+  onStageSelect
 }: TechnologyPanelProps) {
   if (!selectedStage) {
     return (
       <div className="w-80 bg-gray-50 border-r border-gray-200 p-4">
-        <div className="text-center text-gray-500 mt-8">
-          <h2 className="text-lg font-semibold mb-2">Select a stage</h2>
-          <p className="text-sm">Click on a stage in the workflow to see available technologies.</p>
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold text-gray-900">Stages</h2>
+          <p className="text-sm text-gray-500 mt-1">Select a stage to browse technologies.</p>
+        </div>
+        <div className="space-y-1">
+          {customStageDefinitions.map(stage => (
+            <button
+              key={stage.id}
+              onClick={() => onStageSelect && onStageSelect(stage.id as MLOpsStage)}
+              className="w-full text-left px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition-colors"
+            >
+              {stage.name}
+            </button>
+          ))}
         </div>
       </div>
     )
   }
 
   const stageInfo = customStageDefinitions.find(s => s.id === selectedStage)
-  const stageTechnologies = technologies[selectedStage] || []
+  const stageTechnologies = (technologies[selectedStage] || [])
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
   const selectedTechIds = (selectedTechnologies || []).map(t => t.id)
 
   return (
@@ -56,7 +71,11 @@ export default function TechnologyPanel({
                   onClick={() => onTechnologySelect(tech)}
                 >
                   {tech.icon ? (
-                    <img src={tech.icon} alt={tech.name} className="w-4 h-4 flex-shrink-0" />
+                    <img
+                      src={tech.icon}
+                      alt={tech.name}
+                      className="w-4 h-4 flex-shrink-0 object-contain"
+                    />
                   ) : (
                     <div
                       className={`technology-dot ${isSelected ? 'bg-indigo-500' : 'bg-gray-400'}`}

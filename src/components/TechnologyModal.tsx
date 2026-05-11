@@ -65,7 +65,7 @@ export default function TechnologyModal({
         <div className="flex justify-between items-start mb-4 pr-10">
           <div className="flex items-center space-x-3">
             {technology.icon && (
-              <img src={technology.icon} alt={technology.name} className="w-6 h-6" />
+              <img src={technology.icon} alt={technology.name} className="w-6 h-6 object-contain" />
             )}
             <div>
               <h2 className="text-xl font-semibold text-gray-900">{technology.name}</h2>

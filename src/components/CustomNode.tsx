@@ -110,10 +110,23 @@ export default function CustomNode({ data }: NodeProps<CustomNodeData>) {
                   }}
                 >
                   {tech.icon ? (
-                    <img src={tech.icon} alt={tech.name} className="w-3 h-3 flex-shrink-0 mr-2" />
-                  ) : (
-                    <span className="technology-dot bg-blue-500"></span>
-                  )}
+                    <img
+                      src={tech.icon}
+                      alt={tech.name}
+                      className="w-5 h-5 flex-shrink-0 mr-2 object-contain"
+                      onError={e => {
+                        e.currentTarget.style.display = 'none'
+                        const dot = e.currentTarget.nextElementSibling as HTMLElement
+                        if (dot) {
+                          dot.style.display = 'inline-block'
+                        }
+                      }}
+                    />
+                  ) : null}
+                  <span
+                    className="technology-dot bg-blue-500"
+                    style={{ display: tech.icon ? 'none' : 'inline-block' }}
+                  ></span>
                   <span className="text-gray-700" style={{ fontSize: '18px', fontWeight: '600' }}>
                     {tech.name}
                   </span>

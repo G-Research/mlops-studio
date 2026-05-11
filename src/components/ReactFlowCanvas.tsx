@@ -65,8 +65,8 @@ function ReactFlowCanvas({
         }
       }
     }
-    // Default viewport
-    return { x: 0, y: 0, zoom: 1 }
+    // Default viewport: one zoom level out, slightly right to show more stages
+    return { x: 80, y: 30, zoom: 0.75 }
   }
 
   // Save viewport to localStorage

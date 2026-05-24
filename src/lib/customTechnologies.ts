@@ -1,6 +1,23 @@
 import { Technology, MLOpsStage } from '@/types/mlops'
 import { technologies } from '@/lib/data'
 
+const VALID_STAGES: MLOpsStage[] = [
+  'experiment_tracking',
+  'experimentation',
+  'data_versioning',
+  'code_versioning',
+  'pipeline_orchestration',
+  'artifact_tracking',
+  'model_registry',
+  'model_serving',
+  'model_monitoring',
+  'runtime_engine'
+]
+
+function isValidStage(category: string): category is MLOpsStage {
+  return VALID_STAGES.includes(category as MLOpsStage)
+}
+
 // Get custom technologies from localStorage
 export function getCustomTechnologies(): Record<MLOpsStage, Technology[]> {
   if (typeof window === 'undefined') {
@@ -83,8 +100,13 @@ export function saveCustomTechnologies(customTech: Record<MLOpsStage, Technology
 
 // Add a new technology to the custom storage
 export function addCustomTechnology(technology: Technology): void {
+  if (!isValidStage(technology.category)) {
+    console.error(`Invalid technology category: "${technology.category}"`)
+    return
+  }
+
   const currentCustom = getCustomTechnologies()
-  const stage = technology.category as MLOpsStage
+  const stage = technology.category
 
   // Generate a unique ID if not provided
   if (!technology.id) {
@@ -99,8 +121,13 @@ export function addCustomTechnology(technology: Technology): void {
 
 // Update an existing technology
 export function updateCustomTechnology(updatedTechnology: Technology): void {
+  if (!isValidStage(updatedTechnology.category)) {
+    console.error(`Invalid technology category: "${updatedTechnology.category}"`)
+    return
+  }
+
   const currentCustom = getCustomTechnologies()
-  const stage = updatedTechnology.category as MLOpsStage
+  const stage = updatedTechnology.category
 
   // Find and update the technology
   const stageIndex = currentCustom[stage]?.findIndex(tech => tech.id === updatedTechnology.id)

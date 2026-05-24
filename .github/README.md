@@ -10,7 +10,7 @@ Main continuous integration workflow that runs on pushes to `main` and `develop`
 
 **What it does:**
 
-- Tests on Node.js 18.x and 20.x
+- Tests on Node.js 22.x
 - Runs TypeScript type checking
 - Performs ESLint linting
 - Executes test suite with coverage
@@ -52,13 +52,11 @@ Branch: main
 ✅ Dismiss stale PR approvals when new commits are pushed
 ✅ Require review from code owners
 ✅ Require status checks to pass before merging
-    - CI / test (18.x)
-    - CI / test (20.x)
+    - CI / test (22.x)
     - CI / build-check
     - PR Checks / quality-checks
     - PR Checks / security-scan
-    - PR Checks / test-matrix (18.x)
-    - PR Checks / test-matrix (20.x)
+    - PR Checks / test-matrix (22.x)
 ✅ Require branches to be up to date before merging
 ✅ Require conversation resolution before merging
 ✅ Restrict pushes that create files to non-admins
@@ -72,7 +70,7 @@ Branch: develop
 ✅ Require approvals: 1
 ✅ Require status checks to pass before merging
     - PR Checks / quality-checks
-    - PR Checks / test-matrix (20.x)
+    - PR Checks / test-matrix (22.x)
 ✅ Require branches to be up to date before merging
 ```
 

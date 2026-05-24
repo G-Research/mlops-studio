@@ -21,10 +21,18 @@ export function saveStack(stack: MLOpsStack): void {
   }
 }
 
+function rehydrateDates(stack: MLOpsStack): MLOpsStack {
+  return {
+    ...stack,
+    created: new Date(stack.created),
+    updated: new Date(stack.updated)
+  }
+}
+
 export function getSavedStacks(): MLOpsStack[] {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
-    return saved ? JSON.parse(saved) : []
+    return saved ? (JSON.parse(saved) as MLOpsStack[]).map(rehydrateDates) : []
   } catch (error) {
     console.error('Failed to get saved stacks:', error)
     return []
@@ -34,7 +42,7 @@ export function getSavedStacks(): MLOpsStack[] {
 export function getCurrentStack(): MLOpsStack | null {
   try {
     const saved = localStorage.getItem(CURRENT_STACK_KEY)
-    return saved ? JSON.parse(saved) : null
+    return saved ? rehydrateDates(JSON.parse(saved) as MLOpsStack) : null
   } catch (error) {
     console.error('Failed to get current stack:', error)
     return null

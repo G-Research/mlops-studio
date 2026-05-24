@@ -16,9 +16,9 @@ If you discover a security vulnerability, please report it responsibly by follow
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, please report security vulnerabilities to:
+Instead, please use GitHub's private vulnerability reporting:
 
-- **Email**: [security@yourproject.com] (replace with actual email)
+- **GitHub**: [Report a vulnerability](https://github.com/G-Research/mlops-studio/security/advisories/new)
 - **Subject**: "Security Vulnerability Report - MLOps Studio"
 
 ### What to Include

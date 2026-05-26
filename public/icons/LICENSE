@@ -1,0 +1,101 @@
+# Icon Licensing
+
+> **The icons and logos in this directory are NOT covered by the Apache 2.0 license that
+> applies to the rest of this repository.** Each icon belongs to its respective owner and
+> is subject to that owner's trademark and copyright terms.
+
+---
+
+## Why these icons are here
+
+These icons are used solely to help users visually identify MLOps tools within the
+MLOps Studio interface. They are not packaged as a distributable asset collection and
+are not the creative work of this project.
+
+## Ownership
+
+Every icon in this directory is the property of its respective company or project:
+
+| File | Tool | Owner |
+|------|------|-------|
+| airflow.svg | Apache Airflow | The Apache Software Foundation |
+| alibi-detect.svg | Alibi Detect | Seldon Technologies Ltd |
+| amazon-s3.svg | Amazon S3 | Amazon Web Services, Inc. |
+| apache-zeppelin.svg | Apache Zeppelin | The Apache Software Foundation |
+| argo.svg | Argo Workflows | CNCF / Intuit |
+| beam.svg | Apache Beam | The Apache Software Foundation |
+| bentoml.svg | BentoML | BentoML, Inc. |
+| clearml.svg | ClearML | ClearML Ltd |
+| dagshub.svg | DagsHub | DagsHub Ltd |
+| dagster.svg | Dagster | Dagster Labs |
+| dask.svg | Dask | Anaconda, Inc. |
+| databricks.svg | Databricks | Databricks, Inc. |
+| datadog.svg | Datadog | Datadog, Inc. |
+| deepnote.svg | Deepnote | Deepnote |
+| delta-lake.svg | Delta Lake | Linux Foundation / Databricks |
+| determined.svg | Determined AI | Hewlett Packard Enterprise |
+| dolt.svg | Dolt | DoltHub, Inc. |
+| dvc.svg | DVC | Iterative, Inc. |
+| evidently.svg | Evidently AI | Evidently AI |
+| fastapi.svg | FastAPI | Sebastián Ramírez |
+| fastds.png | FastDS | mymlops.com |
+| flyte.svg | Flyte | Union.ai / Linux Foundation |
+| git.svg | Git | Software Freedom Conservancy |
+| github.svg | GitHub | GitHub, Inc. (Microsoft) |
+| gitlab.svg | GitLab | GitLab B.V. |
+| gitlfs.svg | Git LFS | GitHub, Inc. |
+| google-colab.svg | Google Colab | Google LLC |
+| grafana.svg | Grafana | Grafana Labs |
+| guild-ai.svg | Guild AI | TensorWork |
+| horovod.svg | Horovod | Linux Foundation AI & Data |
+| jenkins.svg | Jenkins | The Jenkins Project |
+| jupyter.svg | JupyterLab | Project Jupyter |
+| kedro.svg | Kedro | QuantumBlack, AI by McKinsey |
+| keras.svg | Keras | Google LLC |
+| kestra.svg | Kestra | Kestra Technologies |
+| kserve.svg | KServe | CNCF / KServe community |
+| kubeflow.svg | Kubeflow | CNCF / Google |
+| lakefs.svg | lakeFS | Treeverse |
+| logo.svg | MLOps Studio | This project (Apache 2.0) |
+| luigi.svg | Luigi | Spotify AB |
+| mlflow.svg | MLflow | Databricks, Inc. |
+| mlrun.svg | MLRun | Iguazio (Hewlett Packard Enterprise) |
+| modeldb.svg | ModelDB | Verta, Inc. |
+| mongodb.svg | MongoDB | MongoDB, Inc. |
+| nannyml.svg | NannyML | NannyML |
+| neptune.svg | Neptune.ai | Neptune Labs |
+| nextflow.svg | Nextflow | Seqera Labs |
+| nuclio.svg | Nuclio | Iguazio |
+| nvidia.svg | NVIDIA | NVIDIA Corporation |
+| orchest.svg | Orchest | Orchest B.V. |
+| pachyderm.svg | Pachyderm | Hewlett Packard Enterprise |
+| polyaxon.svg | Polyaxon | Polyaxon, Inc. |
+| polynote.svg | Polynote | Netflix, Inc. |
+| postgresql.svg | PostgreSQL | The PostgreSQL Global Development Group |
+| prefect.svg | Prefect | Prefect Technologies, Inc. |
+| prometheus.svg | Prometheus | CNCF / Linux Foundation |
+| pytorch.svg | PyTorch | Meta Platforms, Inc. |
+| quilt.svg | Quilt | Quilt Data, Inc. |
+| ray.svg | Ray | Anyscale, Inc. |
+| rstudio.svg | RStudio / Posit | Posit PBC |
+| scikit-learn.svg | scikit-learn | scikit-learn contributors (BSD 3-Clause) |
+| seldoncore.svg | Seldon Core | Seldon Technologies Ltd |
+| snowflake.svg | Snowflake | Snowflake Inc. |
+| spark.svg | Apache Spark | The Apache Software Foundation |
+| spyder.svg | Spyder | Spyder Project Contributors |
+| tensorboard.svg | TensorBoard | Google LLC |
+| tensorflow.svg | TensorFlow | Google LLC |
+| wandb.svg | Weights & Biases | Weights & Biases, Inc. |
+| zenml.svg | ZenML | ZenML GmbH |
+
+## Usage rationale
+
+Use of these logos is consistent with standard open-source project practice for
+tool-identification UI (similar to DevIcon, Simple Icons, etc.). We believe this
+constitutes nominative fair use: the logos are used only to identify the tools they
+represent, are not modified for misleading purposes, and do not imply endorsement.
+
+## Removal requests
+
+If you are a rights holder and object to the inclusion of your logo, please open an
+issue or contact the maintainers. We will remove it promptly.

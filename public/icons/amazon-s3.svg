@@ -1,0 +1,26 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- AWS Orange background -->
+  <rect width="200" height="200" fill="#FF9900" rx="12"/>
+  
+  <!-- S3 bucket icon -->
+  <g fill="white">
+    <!-- Main bucket shape -->
+    <path d="M 50 80 Q 50 70 60 70 L 140 70 Q 150 70 150 80 L 150 130 Q 150 140 140 140 L 60 140 Q 50 140 50 130 Z"/>
+    
+    <!-- Bucket lid/top -->
+    <ellipse cx="100" cy="75" rx="45" ry="8" fill="white"/>
+    
+    <!-- S3 text -->
+    <text x="100" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#232F3E">S3</text>
+    
+    <!-- Small data indicators -->
+    <circle cx="70" cy="95" r="2" fill="#232F3E"/>
+    <circle cx="100" cy="95" r="2" fill="#232F3E"/>
+    <circle cx="130" cy="95" r="2" fill="#232F3E"/>
+    <circle cx="85" cy="125" r="2" fill="#232F3E"/>
+    <circle cx="115" cy="125" r="2" fill="#232F3E"/>
+  </g>
+  
+  <!-- AWS brand mark -->
+  <text x="100" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="normal" fill="white">Amazon S3</text>
+</svg>

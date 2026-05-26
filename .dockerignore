@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Next.js
+.next
+out
+
+# Development files
+.env*.local
+.DS_Store
+
+# Git
+.git
+.gitignore
+
+# CI/CD
+.github
+
+# Documentation
+README.md
+docs
+
+# Archive and scripts
+archive
+one_off_scripts
+
+# IDE
+.vscode
+.idea
+
+# Logs
+logs
+*.log
+
+# Coverage
+coverage
+
+# Testing
+.nyc_output
+
+# Build artifacts
+*.tsbuildinfo
+
+# Local environment
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

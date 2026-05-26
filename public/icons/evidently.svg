@@ -1,0 +1,14 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Light pink background -->
+  <rect width="200" height="200" fill="#F8E8EA" rx="12"/>
+  
+  <!-- Red bar chart representing data monitoring -->
+  <!-- Bar 1 (shortest) -->
+  <rect x="40" y="120" width="30" height="50" fill="#DC2626" rx="2"/>
+  
+  <!-- Bar 2 (medium) -->
+  <rect x="85" y="100" width="30" height="70" fill="#DC2626" rx="2"/>
+  
+  <!-- Bar 3 (tallest) -->
+  <rect x="130" y="80" width="30" height="90" fill="#DC2626" rx="2"/>
+</svg>

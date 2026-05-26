@@ -1,62 +1,39 @@
-# Use the official Node.js runtime as the base image
 FROM node:22-alpine AS base
-
-# Set working directory
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies with cache mount
 RUN --mount=type=cache,target=/root/.npm \
     npm ci --only=production --no-audit --no-fund
 
-# Build stage
 FROM node:22-alpine AS builder
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# Install all dependencies (including dev dependencies) with cache mount
 RUN --mount=type=cache,target=/root/.npm \
     npm ci --no-audit --no-fund
-
-# Copy source code
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Production stage
 FROM node:22-alpine AS runner
 WORKDIR /app
 
-# Create a non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy necessary files from builder stage
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/healthcheck.js ./healthcheck.js
 
-# Change ownership to nextjs user
 RUN chown -R nextjs:nodejs /app
 
-# Switch to non-root user
 USER nextjs
 
-# Expose the port the app runs on
 EXPOSE 3000
 
-# Set environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node healthcheck.js || exit 1
 
-# Start the application
-CMD ["node", "server.js"]
+CMD ["./node_modules/.bin/next", "start"]

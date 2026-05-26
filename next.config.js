@@ -2,8 +2,7 @@
 const nextConfig = {
   devIndicators: {
     position: 'bottom-left'
-  },
-  output: 'standalone'
+  }
 }
 
 export default nextConfig

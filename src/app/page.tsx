@@ -176,10 +176,11 @@ export default function Home() {
     setSelectedTechnology(null)
   }, [selectedTechnology, selectedStage, handleRemoveTechnology])
 
-  const isAlreadyAdded =
-    selectedTechnology && selectedStage
-      ? currentStack.technologies[selectedStage].some(t => t.id === selectedTechnology.id)
-      : false
+  const isAlreadyAdded = selectedTechnology
+    ? Object.values(currentStack.technologies)
+        .flat()
+        .some(t => t.id === selectedTechnology.id)
+    : false
 
   return (
     <div className="min-h-screen bg-gray-50">
